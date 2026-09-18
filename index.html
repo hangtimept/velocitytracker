@@ -7,7 +7,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#050505">
 <title>BarVelocity Pro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -20,15 +19,9 @@
     --accent2: #00b4d8;
     --danger: #ff4757;
     --warning: #ffa502;
-    --success: #2ed573;
   }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   html, body {
     height: 100%;
@@ -49,7 +42,7 @@
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    padding: 12px 16px 24px;
+    padding: 12px 16px 28px;
   }
 
   /* Header */
@@ -57,22 +50,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .logo {
     font-weight: 800;
     font-size: 18px;
     letter-spacing: -0.5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
-
   .logo span {
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .header-right {
+    display: flex;
+    gap: 8px;
+    align-items: center;
   }
 
   .status-pill {
@@ -84,33 +79,49 @@
     color: var(--muted);
     border: 1px solid var(--border);
   }
-
   .status-pill.live {
     background: rgba(0, 229, 160, 0.12);
     color: var(--accent);
     border-color: rgba(0, 229, 160, 0.3);
   }
+  .status-pill.recording {
+    background: rgba(255, 71, 87, 0.15);
+    color: var(--danger);
+    border-color: rgba(255, 71, 87, 0.35);
+  }
 
-  /* Hero Velocity */
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  /* Hero */
   .hero {
     background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
     border: 1px solid var(--border);
     border-radius: 24px;
-    padding: 28px 20px 24px;
+    padding: 26px 20px 22px;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     position: relative;
     overflow: hidden;
   }
-
   .hero::before {
     content: '';
     position: absolute;
-    top: -50%;
+    top: -40%;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 30%, rgba(0, 229, 160, 0.08) 0%, transparent 50%);
+    background: radial-gradient(circle at 50% 30%, rgba(0, 229, 160, 0.07) 0%, transparent 55%);
     pointer-events: none;
   }
 
@@ -120,79 +131,69 @@
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .velocity-display {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 72px;
+    font-size: 68px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -3px;
-    background: linear-gradient(180deg, #fff 30%, #aaa);
+    background: linear-gradient(180deg, #fff 25%, #999);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 4px;
   }
 
   .velocity-unit {
-    font-size: 16px;
+    font-size: 15px;
     color: var(--muted);
-    font-weight: 500;
+    margin-top: 2px;
   }
 
   .velocity-sub {
     display: flex;
     justify-content: center;
-    gap: 24px;
-    margin-top: 18px;
+    gap: 28px;
+    margin-top: 16px;
   }
-
-  .sub-item {
-    text-align: center;
-  }
-
+  .sub-item { text-align: center; }
   .sub-value {
     font-family: 'JetBrains Mono', monospace;
     font-size: 20px;
     font-weight: 700;
-    color: var(--text);
   }
-
   .sub-label {
     font-size: 11px;
     color: var(--muted);
     margin-top: 2px;
   }
 
-  /* Metrics Grid */
+  /* Metrics */
   .metrics {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
-
   .metric-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 14px 10px;
+    padding: 13px 8px;
     text-align: center;
   }
-
   .metric-value {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
   }
-
   .metric-label {
     font-size: 10px;
     color: var(--muted);
-    margin-top: 4px;
+    margin-top: 3px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
   }
 
   /* Graph */
@@ -200,24 +201,19 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 12px;
-    margin-bottom: 16px;
-    height: 140px;
+    padding: 10px;
+    margin-bottom: 14px;
+    height: 130px;
     position: relative;
   }
-
-  canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+  canvas { width: 100%; height: 100%; display: block; }
 
   /* Controls */
   .controls {
     display: grid;
-    grid-template-columns: 1fr 1.4fr 1fr;
+    grid-template-columns: 1fr 1.5fr 1fr;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
 
   button {
@@ -226,7 +222,7 @@
     font-family: inherit;
     font-weight: 600;
     font-size: 15px;
-    padding: 16px 12px;
+    padding: 15px 10px;
     cursor: pointer;
     transition: all 0.15s ease;
     display: flex;
@@ -234,40 +230,41 @@
     justify-content: center;
     gap: 6px;
   }
-
-  button:active {
-    transform: scale(0.97);
-  }
+  button:active { transform: scale(0.97); }
 
   .btn-secondary {
     background: #1a1a1a;
     color: var(--text);
     border: 1px solid var(--border);
   }
-
   .btn-primary {
     background: linear-gradient(135deg, var(--accent), #00c48a);
     color: #000;
-    box-shadow: 0 4px 20px rgba(0, 229, 160, 0.25);
+    box-shadow: 0 4px 18px rgba(0, 229, 160, 0.25);
   }
-
   .btn-primary.recording {
     background: linear-gradient(135deg, var(--danger), #ff6b81);
-    box-shadow: 0 4px 20px rgba(255, 71, 87, 0.3);
+    box-shadow: 0 4px 18px rgba(255, 71, 87, 0.3);
   }
-
   .btn-danger {
     background: #1a1a1a;
     color: var(--danger);
     border: 1px solid rgba(255, 71, 87, 0.3);
   }
 
-  /* Recent Reps */
+  .secondary-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  /* Reps */
   .section-title {
     font-size: 13px;
     font-weight: 600;
     color: var(--muted);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -278,64 +275,65 @@
     border: 1px solid var(--border);
     border-radius: 16px;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    max-height: 220px;
+    overflow-y: auto;
   }
 
   .rep-row {
     display: grid;
-    grid-template-columns: 40px 1fr 1fr 1fr;
-    padding: 12px 14px;
+    grid-template-columns: 36px 1fr 1fr 1fr 32px;
+    padding: 11px 12px;
     border-bottom: 1px solid var(--border);
     font-size: 13px;
     align-items: center;
   }
-
-  .rep-row:last-child {
-    border-bottom: none;
-  }
-
+  .rep-row:last-child { border-bottom: none; }
   .rep-row.header {
     background: #0a0a0a;
     color: var(--muted);
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     font-weight: 600;
+    position: sticky;
+    top: 0;
+  }
+  .rep-num { font-weight: 700; color: var(--accent); }
+  .mono { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+  .del-rep {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 16px;
+    padding: 0;
+    width: 28px;
+    height: 28px;
   }
 
-  .rep-num {
-    font-weight: 700;
-    color: var(--accent);
+  .tips {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    text-align: center;
+    padding: 0 4px;
   }
 
-  .mono {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 500;
-  }
-
-  /* Permission Overlay */
+  /* Overlay */
   .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.92);
+    background: rgba(0,0,0,0.93);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 32px;
-    z-index: 100;
+    z-index: 200;
     text-align: center;
   }
-
-  .overlay.hidden {
-    display: none;
-  }
-
-  .overlay h2 {
-    font-size: 24px;
-    margin-bottom: 12px;
-  }
-
+  .overlay.hidden { display: none; }
+  .overlay h2 { font-size: 24px; margin-bottom: 12px; }
   .overlay p {
     color: var(--muted);
     font-size: 15px;
@@ -343,51 +341,148 @@
     margin-bottom: 28px;
     max-width: 300px;
   }
-
   .overlay button {
     width: 100%;
     max-width: 280px;
-    padding: 18px;
+    padding: 17px;
     font-size: 16px;
   }
 
-  /* Tips */
-  .tips {
-    font-size: 12px;
+  /* Settings Sheet */
+  .sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .sheet-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 430px;
+    margin: 0 auto;
+    background: #111;
+    border-radius: 24px 24px 0 0;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    z-index: 160;
+    transform: translateY(110%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    max-height: 85dvh;
+    overflow-y: auto;
+    padding: 12px 20px 40px;
+  }
+  .sheet.open { transform: translateY(0); }
+
+  .sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: #333;
+    border-radius: 4px;
+    margin: 0 auto 18px;
+  }
+
+  .sheet h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .setting-group {
+    margin-bottom: 22px;
+  }
+  .setting-label {
+    font-size: 13px;
+    font-weight: 600;
     color: var(--muted);
-    line-height: 1.5;
-    text-align: center;
-    padding: 0 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
   }
-
-  .tips strong {
-    color: var(--text);
-  }
-
-  /* Calibration indicator */
-  .cal-status {
-    font-size: 11px;
-    color: var(--muted);
-    text-align: center;
-    margin-top: 8px;
-  }
-
-  .cal-status.good {
+  .setting-value {
     color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 6px;
+    background: #222;
+    border-radius: 4px;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    background: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 229, 160, 0.4);
+  }
+
+  .toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .toggle-row:last-child { border-bottom: none; }
+
+  .toggle {
+    width: 48px;
+    height: 28px;
+    background: #333;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle.on { background: var(--accent); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.2s;
+  }
+  .toggle.on::after { transform: translateX(20px); }
+
+  .sheet-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
   }
 </style>
 </head>
 <body>
   <div class="app">
-    <!-- Header -->
     <div class="header">
       <div class="logo">Bar<span>Velocity</span> Pro</div>
-      <div class="status-pill" id="statusPill">READY</div>
+      <div class="header-right">
+        <div class="status-pill" id="statusPill">READY</div>
+        <button class="icon-btn" id="settingsBtn" title="Settings">⚙</button>
+      </div>
     </div>
 
-    <!-- Hero -->
     <div class="hero">
-      <div class="hero-label">Mean Velocity</div>
+      <div class="hero-label">Live Velocity</div>
       <div class="velocity-display" id="liveVelocity">0.00</div>
       <div class="velocity-unit">m/s</div>
       <div class="velocity-sub">
@@ -406,7 +501,6 @@
       </div>
     </div>
 
-    <!-- Metrics -->
     <div class="metrics">
       <div class="metric-card">
         <div class="metric-value" id="setMean">—</div>
@@ -422,19 +516,21 @@
       </div>
     </div>
 
-    <!-- Graph -->
     <div class="graph-container">
       <canvas id="velocityChart"></canvas>
     </div>
 
-    <!-- Controls -->
     <div class="controls">
-      <button class="btn-secondary" id="calibrateBtn">Calibrate</button>
+      <button class="btn-secondary" id="zeroBtn">Zero</button>
       <button class="btn-primary" id="recordBtn">Start Set</button>
       <button class="btn-danger" id="resetBtn">Reset</button>
     </div>
 
-    <!-- Recent Reps -->
+    <div class="secondary-row">
+      <button class="btn-secondary" id="calibrateBtn">Calibrate</button>
+      <button class="btn-secondary" id="undoBtn">Undo Last Rep</button>
+    </div>
+
     <div class="section-title">
       <span>Recent Reps</span>
       <span id="setInfo">Set not started</span>
@@ -445,263 +541,353 @@
         <div>Mean</div>
         <div>Peak</div>
         <div>ROM</div>
+        <div></div>
       </div>
     </div>
 
     <div class="tips">
-      <strong>Mount phone securely</strong> on the barbell sleeve or center knurling.<br>
-      Keep the screen facing the same direction throughout the set.
+      Mount phone firmly on the bar. Tap <strong>Zero</strong> when the bar is completely still if velocity drifts. Adjust min ROM in Settings.
     </div>
   </div>
 
-  <!-- Permission Overlay -->
+  <!-- Permission -->
   <div class="overlay" id="permissionOverlay">
     <h2>Enable Motion Sensors</h2>
-    <p>BarVelocity Pro needs access to your iPhone’s accelerometer and gyroscope to measure barbell velocity in real time.</p>
+    <p>BarVelocity Pro needs access to your iPhone’s accelerometer and gyroscope to measure barbell velocity.</p>
     <button class="btn-primary" id="enableMotionBtn">Enable Motion Access</button>
+  </div>
+
+  <!-- Settings Sheet -->
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <div class="sheet" id="settingsSheet">
+    <div class="sheet-handle"></div>
+    <h3>Settings</h3>
+
+    <div class="setting-group">
+      <div class="setting-label">
+        <span>Min ROM to count as rep</span>
+        <span class="setting-value" id="minRomVal">15 cm</span>
+      </div>
+      <input type="range" id="minRom" min="5" max="60" step="1" value="15">
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">
+        <span>Start Velocity Threshold</span>
+        <span class="setting-value" id="startThreshVal">0.12 m/s</span>
+      </div>
+      <input type="range" id="startThresh" min="0.05" max="0.35" step="0.01" value="0.12">
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">
+        <span>Stationary Threshold</span>
+        <span class="setting-value" id="statThreshVal">0.06 m/s</span>
+      </div>
+      <input type="range" id="statThresh" min="0.02" max="0.15" step="0.01" value="0.06">
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">
+        <span>Zero Strength (higher = faster zero)</span>
+        <span class="setting-value" id="zeroStrengthVal">0.75</span>
+      </div>
+      <input type="range" id="zeroStrength" min="0.3" max="0.95" step="0.05" value="0.75">
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">
+        <span>Target Velocity (for feedback)</span>
+        <span class="setting-value" id="targetVelVal">0.50 m/s</span>
+      </div>
+      <input type="range" id="targetVel" min="0.20" max="1.20" step="0.05" value="0.50">
+    </div>
+
+    <div class="setting-group">
+      <div class="toggle-row">
+        <span>Haptic feedback on rep</span>
+        <div class="toggle on" id="hapticToggle"></div>
+      </div>
+      <div class="toggle-row">
+        <span>Sound on rep complete</span>
+        <div class="toggle" id="soundToggle"></div>
+      </div>
+      <div class="toggle-row">
+        <span>Flash when below target</span>
+        <div class="toggle on" id="flashToggle"></div>
+      </div>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn-secondary" id="closeSettings">Close</button>
+      <button class="btn-primary" id="saveSettings">Save</button>
+    </div>
   </div>
 
 <script>
 (() => {
+  // ========== SETTINGS (persisted) ==========
+  const defaultSettings = {
+    minRomCm: 15,
+    startThresh: 0.12,
+    stationaryThresh: 0.06,
+    zeroStrength: 0.75,
+    targetVel: 0.50,
+    haptic: true,
+    sound: false,
+    flashBelowTarget: true
+  };
+
+  let settings = { ...defaultSettings };
+  try {
+    const saved = localStorage.getItem('bv_settings');
+    if (saved) settings = { ...defaultSettings, ...JSON.parse(saved) };
+  } catch(e) {}
+
   // ========== STATE ==========
   let isRecording = false;
-  let isCalibrated = false;
   let permissionGranted = false;
 
-  // Sensor data
-  let ax = 0, ay = 0, az = 0;
+  // Sensor fusion
   let gravity = { x: 0, y: 0, z: 9.81 };
   let velocity = 0;
   let position = 0;
   let lastTimestamp = null;
-
-  // Filtering
-  const alpha = 0.85; // low-pass for gravity
   let lastAccel = 0;
+  let stationarySamples = 0;
 
-  // Rep detection
+  // Rep state machine
+  // States: 'idle' | 'concentric'
+  let repState = 'idle';
+  let currentRep = null;
   let reps = [];
-  let currentRep = {
-    startPos: 0,
-    peakVel: 0,
-    velocities: [],
-    positions: [],
-    startTime: 0
-  };
-  let inConcentric = false;
-  let wasMoving = false;
-  let stationaryCount = 0;
-  const STATIONARY_THRESHOLD = 0.08; // m/s
-  const MOVING_THRESHOLD = 0.15;
-  const MIN_ROM = 0.12; // 12 cm minimum for valid rep
 
   // Chart
   const chartData = [];
-  const MAX_CHART_POINTS = 120;
+  const MAX_POINTS = 140;
   let chartCtx = null;
 
-  // DOM
+  // DOM shortcuts
   const $ = id => document.getElementById(id);
-  const liveVelocityEl = $('liveVelocity');
-  const peakVelEl = $('peakVel');
-  const romEl = $('rom');
-  const repCountEl = $('repCount');
-  const setMeanEl = $('setMean');
-  const velLossEl = $('velLoss');
-  const bestRepEl = $('bestRep');
-  const statusPill = $('statusPill');
-  const recordBtn = $('recordBtn');
-  const repsList = $('repsList');
-  const setInfo = $('setInfo');
-  const permissionOverlay = $('permissionOverlay');
 
-  // ========== SENSOR HANDLING ==========
+  // ========== SENSOR ==========
   function requestMotionPermission() {
     if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
       DeviceMotionEvent.requestPermission()
-        .then(response => {
-          if (response === 'granted') {
+        .then(r => {
+          if (r === 'granted') {
             permissionGranted = true;
-            permissionOverlay.classList.add('hidden');
-            startSensors();
+            $('permissionOverlay').classList.add('hidden');
+            window.addEventListener('devicemotion', onMotion, { passive: true });
           } else {
-            alert('Motion permission is required for velocity tracking.');
+            alert('Motion permission is required.');
           }
         })
         .catch(console.error);
     } else {
-      // Non-iOS or older
       permissionGranted = true;
-      permissionOverlay.classList.add('hidden');
-      startSensors();
+      $('permissionOverlay').classList.add('hidden');
+      window.addEventListener('devicemotion', onMotion, { passive: true });
     }
   }
 
-  function startSensors() {
-    window.addEventListener('devicemotion', handleMotion, { passive: true });
-  }
-
-  function handleMotion(e) {
+  function onMotion(e) {
     if (!e.accelerationIncludingGravity) return;
-
     const now = e.timeStamp || performance.now();
     const aig = e.accelerationIncludingGravity;
 
-    // Prefer linear acceleration if available
-    let linAx = 0, linAy = 0, linAz = 0;
+    let linX = 0, linY = 0, linZ = 0;
 
     if (e.acceleration && e.acceleration.x !== null) {
-      linAx = e.acceleration.x || 0;
-      linAy = e.acceleration.y || 0;
-      linAz = e.acceleration.z || 0;
+      linX = e.acceleration.x || 0;
+      linY = e.acceleration.y || 0;
+      linZ = e.acceleration.z || 0;
     } else {
-      // Estimate linear accel by removing gravity
-      gravity.x = alpha * gravity.x + (1 - alpha) * (aig.x || 0);
-      gravity.y = alpha * gravity.y + (1 - alpha) * (aig.y || 0);
-      gravity.z = alpha * gravity.z + (1 - alpha) * (aig.z || 0);
-
-      linAx = (aig.x || 0) - gravity.x;
-      linAy = (aig.y || 0) - gravity.y;
-      linAz = (aig.z || 0) - gravity.z;
+      const a = 0.88;
+      gravity.x = a * gravity.x + (1 - a) * (aig.x || 0);
+      gravity.y = a * gravity.y + (1 - a) * (aig.y || 0);
+      gravity.z = a * gravity.z + (1 - a) * (aig.z || 0);
+      linX = (aig.x || 0) - gravity.x;
+      linY = (aig.y || 0) - gravity.y;
+      linZ = (aig.z || 0) - gravity.z;
     }
 
-    // For a phone mounted on a barbell, the dominant vertical axis is usually the one
-    // with the largest gravity component after calibration. For simplicity we use
-    // the magnitude of linear acceleration projected roughly on vertical.
-    // Better approach: use the axis most aligned with gravity at calibration.
-
-    // Simple approach: use the component along the strongest gravity axis
-    const gMag = Math.sqrt(gravity.x**2 + gravity.y**2 + gravity.z**2) || 9.81;
+    // Project linear acceleration onto the gravity vector (vertical)
+    const gMag = Math.hypot(gravity.x, gravity.y, gravity.z) || 9.81;
     const gx = gravity.x / gMag;
     const gy = gravity.y / gMag;
     const gz = gravity.z / gMag;
 
-    // Linear acceleration along gravity direction (positive = up against gravity)
-    const accelVertical = -(linAx * gx + linAy * gy + linAz * gz);
+    // Positive = upward (against gravity)
+    const accel = -(linX * gx + linY * gy + linZ * gz);
 
-    processAcceleration(accelVertical, now);
+    processSample(accel, now);
   }
 
-  function processAcceleration(accel, timestamp) {
+  function processSample(rawAccel, timestamp) {
     if (!lastTimestamp) {
       lastTimestamp = timestamp;
       return;
     }
 
-    const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.05); // cap dt
+    let dt = (timestamp - lastTimestamp) / 1000;
+    if (dt <= 0 || dt > 0.08) dt = 0.016; // safety
     lastTimestamp = timestamp;
 
-    // Light filtering
-    const filteredAccel = 0.7 * lastAccel + 0.3 * accel;
-    lastAccel = filteredAccel;
+    // Light low-pass on acceleration
+    const accel = 0.65 * lastAccel + 0.35 * rawAccel;
+    lastAccel = accel;
 
-    // Integrate → velocity
-    velocity += filteredAccel * dt;
+    // Integrate acceleration → velocity
+    velocity += accel * dt;
 
-    // Zero-velocity update when nearly stationary
-    if (Math.abs(velocity) < STATIONARY_THRESHOLD && Math.abs(filteredAccel) < 0.4) {
-      stationaryCount++;
-      if (stationaryCount > 8) {
-        velocity *= 0.6; // gentle pull to zero
-        if (Math.abs(velocity) < 0.03) velocity = 0;
+    // ========== STRONG ZERO-VELOCITY UPDATE ==========
+    const isStationary = Math.abs(velocity) < settings.stationaryThresh && Math.abs(accel) < 0.55;
+
+    if (isStationary) {
+      stationarySamples++;
+      // After a short confirmation window, force velocity toward zero aggressively
+      if (stationarySamples >= 5) {
+        velocity *= (1 - settings.zeroStrength);
+        if (Math.abs(velocity) < 0.015) {
+          velocity = 0;
+        }
+        // Softly freeze position drift while stationary
+        // (we don't fully reset position so ROM still works across a set)
       }
     } else {
-      stationaryCount = 0;
+      stationarySamples = 0;
     }
 
-    // Integrate → position
+    // Integrate velocity → position
     position += velocity * dt;
 
-    // Live display (always update velocity)
-    const displayVel = Math.abs(velocity);
-    liveVelocityEl.textContent = displayVel.toFixed(2);
+    // Live UI
+    const absV = Math.abs(velocity);
+    $('liveVelocity').textContent = absV.toFixed(2);
 
-    // Chart data
+    // Optional flash if below target during concentric
+    if (settings.flashBelowTarget && isRecording && repState === 'concentric' && absV > 0.08) {
+      const hero = document.querySelector('.hero');
+      if (absV < settings.targetVel) {
+        hero.style.borderColor = 'rgba(255, 165, 2, 0.5)';
+      } else {
+        hero.style.borderColor = '';
+      }
+    }
+
+    // Chart
     chartData.push(velocity);
-    if (chartData.length > MAX_CHART_POINTS) chartData.shift();
+    if (chartData.length > MAX_POINTS) chartData.shift();
     drawChart();
 
     if (!isRecording) return;
 
-    // ========== REP LOGIC ==========
-    const moving = Math.abs(velocity) > MOVING_THRESHOLD;
-
-    if (moving && !wasMoving) {
-      // Potential start of concentric
-      if (velocity > 0.1) {
-        inConcentric = true;
+    // ========== REP STATE MACHINE ==========
+    if (repState === 'idle') {
+      // Start a new concentric when we see clear upward velocity
+      if (velocity > settings.startThresh) {
+        repState = 'concentric';
         currentRep = {
           startPos: position,
           peakVel: velocity,
-          velocities: [velocity],
-          positions: [position],
-          startTime: timestamp
+          sumVel: velocity,
+          count: 1,
+          maxPos: position
         };
       }
     }
-
-    if (inConcentric) {
-      currentRep.velocities.push(velocity);
-      currentRep.positions.push(position);
+    else if (repState === 'concentric') {
+      currentRep.sumVel += Math.max(0, velocity);
+      currentRep.count++;
       if (velocity > currentRep.peakVel) currentRep.peakVel = velocity;
+      if (position > currentRep.maxPos) currentRep.maxPos = position;
 
-      // End of concentric: velocity crosses near zero or reverses
-      if (velocity < 0.05 && currentRep.velocities.length > 6) {
-        finishRep(timestamp);
+      const romSoFar = currentRep.maxPos - currentRep.startPos;
+
+      // End conditions:
+      // 1. Velocity has returned near zero (or slightly negative)
+      // 2. We have enough samples
+      // 3. ROM is meaningful
+      const nearZero = velocity < settings.stationaryThresh * 1.4;
+      const enoughData = currentRep.count > 8;
+
+      if (nearZero && enoughData) {
+        const romMeters = currentRep.maxPos - currentRep.startPos;
+        const romCm = romMeters * 100;
+
+        if (romCm >= settings.minRomCm) {
+          const meanVel = currentRep.sumVel / currentRep.count;
+          const rep = {
+            number: reps.length + 1,
+            mean: meanVel,
+            peak: currentRep.peakVel,
+            rom: romCm
+          };
+          reps.push(rep);
+          onRepComplete(rep);
+        }
+        // Whether valid or not, return to idle
+        repState = 'idle';
+        currentRep = null;
+      }
+
+      // Safety: if we somehow go strongly negative for a long time, abort
+      if (velocity < -0.45 && currentRep.count > 15) {
+        repState = 'idle';
+        currentRep = null;
       }
     }
 
-    // Safety: if we went very negative (eccentric) reset
-    if (velocity < -0.3) {
-      inConcentric = false;
-    }
-
-    wasMoving = moving;
-
-    // Live peak & ROM during set
-    if (currentRep.peakVel > 0) {
-      peakVelEl.textContent = currentRep.peakVel.toFixed(2);
+    // Live peak / ROM during active rep
+    if (currentRep) {
+      $('peakVel').textContent = currentRep.peakVel.toFixed(2);
+      const liveRom = Math.max(0, (currentRep.maxPos - currentRep.startPos) * 100);
+      $('rom').textContent = Math.round(liveRom);
     }
   }
 
-  function finishRep(timestamp) {
-    const rom = Math.abs(position - currentRep.startPos);
-    if (rom < MIN_ROM) {
-      inConcentric = false;
-      return;
-    }
-
-    // Mean concentric velocity (only positive samples)
-    const positiveVels = currentRep.velocities.filter(v => v > 0.05);
-    const meanVel = positiveVels.length
-      ? positiveVels.reduce((a, b) => a + b, 0) / positiveVels.length
-      : 0;
-
-    const rep = {
-      number: reps.length + 1,
-      mean: meanVel,
-      peak: currentRep.peakVel,
-      rom: rom * 100, // meters → cm
-      timestamp
-    };
-
-    reps.push(rep);
-    inConcentric = false;
-
+  function onRepComplete(rep) {
     updateUI();
-    // Optional haptic
-    if (navigator.vibrate) navigator.vibrate(40);
+    if (settings.haptic && navigator.vibrate) {
+      navigator.vibrate(45);
+    }
+    if (settings.sound) {
+      // Simple beep using Web Audio
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = 880;
+        gain.gain.value = 0.08;
+        osc.start();
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+        osc.stop(ctx.currentTime + 0.12);
+      } catch(e) {}
+    }
   }
 
-  // ========== UI UPDATES ==========
+  function forceZero() {
+    velocity = 0;
+    lastAccel = 0;
+    stationarySamples = 20;
+    $('liveVelocity').textContent = '0.00';
+    if (navigator.vibrate) navigator.vibrate(25);
+  }
+
+  // ========== UI ==========
   function updateUI() {
-    repCountEl.textContent = reps.length;
+    $('repCount').textContent = reps.length;
 
     if (reps.length === 0) {
-      setMeanEl.textContent = '—';
-      velLossEl.textContent = '—';
-      bestRepEl.textContent = '—';
-      setInfo.textContent = 'Set not started';
+      $('setMean').textContent = '—';
+      $('velLoss').textContent = '—';
+      $('bestRep').textContent = '—';
+      $('setInfo').textContent = isRecording ? 'Waiting for first rep…' : 'Set not started';
+      $('peakVel').textContent = '0.00';
+      $('rom').textContent = '0';
       return;
     }
 
@@ -709,23 +895,23 @@
     const setMean = means.reduce((a, b) => a + b, 0) / means.length;
     const best = Math.max(...means);
     const last = means[means.length - 1];
-    const loss = best > 0 ? ((best - last) / best * 100) : 0;
+    const loss = best > 0 ? ((best - last) / best) * 100 : 0;
 
-    setMeanEl.textContent = setMean.toFixed(2);
-    velLossEl.textContent = loss.toFixed(0) + '%';
-    bestRepEl.textContent = best.toFixed(2);
-    romEl.textContent = Math.round(reps[reps.length - 1].rom);
-    peakVelEl.textContent = reps[reps.length - 1].peak.toFixed(2);
-
-    setInfo.textContent = `${reps.length} rep${reps.length > 1 ? 's' : ''} recorded`;
+    $('setMean').textContent = setMean.toFixed(2);
+    $('velLoss').textContent = loss.toFixed(0) + '%';
+    $('bestRep').textContent = best.toFixed(2);
+    $('peakVel').textContent = reps[reps.length - 1].peak.toFixed(2);
+    $('rom').textContent = Math.round(reps[reps.length - 1].rom);
+    $('setInfo').textContent = `${reps.length} rep${reps.length > 1 ? 's' : ''} recorded`;
 
     // Rebuild list
-    const header = repsList.querySelector('.header');
-    repsList.innerHTML = '';
-    repsList.appendChild(header);
+    const list = $('repsList');
+    const header = list.querySelector('.header');
+    list.innerHTML = '';
+    list.appendChild(header);
 
-    // Show last 8 reps (newest first)
-    [...reps].reverse().slice(0, 8).forEach(r => {
+    [...reps].reverse().forEach((r, idx) => {
+      const realIndex = reps.length - 1 - idx;
       const row = document.createElement('div');
       row.className = 'rep-row';
       row.innerHTML = `
@@ -733,30 +919,39 @@
         <div class="mono">${r.mean.toFixed(2)}</div>
         <div class="mono">${r.peak.toFixed(2)}</div>
         <div class="mono">${Math.round(r.rom)}</div>
+        <button class="del-rep" data-idx="${realIndex}">×</button>
       `;
-      repsList.appendChild(row);
+      list.appendChild(row);
+    });
+
+    // Delete handlers
+    list.querySelectorAll('.del-rep').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.dataset.idx);
+        reps.splice(i, 1);
+        // renumber
+        reps.forEach((r, n) => r.number = n + 1);
+        updateUI();
+      });
     });
   }
 
   function drawChart() {
+    const canvas = $('velocityChart');
     if (!chartCtx) {
-      const canvas = $('velocityChart');
-      chartCtx = canvas.getContext('2d');
-      // Set actual size
       const rect = canvas.parentElement.getBoundingClientRect();
       canvas.width = rect.width * devicePixelRatio;
       canvas.height = rect.height * devicePixelRatio;
+      chartCtx = canvas.getContext('2d');
       chartCtx.scale(devicePixelRatio, devicePixelRatio);
     }
 
-    const canvas = $('velocityChart');
     const w = canvas.width / devicePixelRatio;
     const h = canvas.height / devicePixelRatio;
-
     chartCtx.clearRect(0, 0, w, h);
 
-    // Zero line
-    chartCtx.strokeStyle = '#222';
+    // zero line
+    chartCtx.strokeStyle = '#1c1c1c';
     chartCtx.lineWidth = 1;
     chartCtx.beginPath();
     chartCtx.moveTo(0, h / 2);
@@ -765,17 +960,17 @@
 
     if (chartData.length < 2) return;
 
-    const maxAbs = Math.max(0.8, ...chartData.map(Math.abs));
-    const scaleY = (h * 0.42) / maxAbs;
+    const maxAbs = Math.max(0.7, ...chartData.map(Math.abs));
+    const scale = (h * 0.40) / maxAbs;
 
     chartCtx.beginPath();
     chartCtx.strokeStyle = '#00e5a0';
-    chartCtx.lineWidth = 2.5;
+    chartCtx.lineWidth = 2.2;
     chartCtx.lineJoin = 'round';
 
     chartData.forEach((v, i) => {
-      const x = (i / (MAX_CHART_POINTS - 1)) * w;
-      const y = h / 2 - v * scaleY;
+      const x = (i / (MAX_POINTS - 1)) * w;
+      const y = h / 2 - v * scale;
       if (i === 0) chartCtx.moveTo(x, y);
       else chartCtx.lineTo(x, y);
     });
@@ -785,19 +980,18 @@
   // ========== CONTROLS ==========
   $('enableMotionBtn').addEventListener('click', requestMotionPermission);
 
+  $('zeroBtn').addEventListener('click', forceZero);
+
   $('calibrateBtn').addEventListener('click', () => {
-    // Reset gravity estimate and velocity
     gravity = { x: 0, y: 0, z: 9.81 };
-    velocity = 0;
+    forceZero();
     position = 0;
-    lastAccel = 0;
-    isCalibrated = true;
-    statusPill.textContent = 'CALIBRATED';
-    statusPill.classList.add('live');
-    if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+    $('statusPill').textContent = 'CALIBRATED';
+    $('statusPill').className = 'status-pill live';
+    if (navigator.vibrate) navigator.vibrate([20, 40, 20]);
   });
 
-  recordBtn.addEventListener('click', () => {
+  $('recordBtn').addEventListener('click', () => {
     if (!permissionGranted) {
       requestMotionPermission();
       return;
@@ -806,58 +1000,127 @@
     isRecording = !isRecording;
 
     if (isRecording) {
-      // Start new set
       reps = [];
-      velocity = 0;
+      repState = 'idle';
+      currentRep = null;
+      forceZero();
       position = 0;
-      inConcentric = false;
-      currentRep = { startPos: 0, peakVel: 0, velocities: [], positions: [], startTime: 0 };
       updateUI();
 
-      recordBtn.textContent = 'Stop Set';
-      recordBtn.classList.add('recording');
-      statusPill.textContent = 'RECORDING';
-      statusPill.classList.add('live');
+      $('recordBtn').textContent = 'Stop Set';
+      $('recordBtn').classList.add('recording');
+      $('statusPill').textContent = 'RECORDING';
+      $('statusPill').className = 'status-pill recording';
     } else {
-      recordBtn.textContent = 'Start Set';
-      recordBtn.classList.remove('recording');
-      statusPill.textContent = 'READY';
-      statusPill.classList.remove('live');
+      $('recordBtn').textContent = 'Start Set';
+      $('recordBtn').classList.remove('recording');
+      $('statusPill').textContent = 'READY';
+      $('statusPill').className = 'status-pill';
+      document.querySelector('.hero').style.borderColor = '';
     }
   });
 
   $('resetBtn').addEventListener('click', () => {
     isRecording = false;
     reps = [];
-    velocity = 0;
+    repState = 'idle';
+    currentRep = null;
+    forceZero();
     position = 0;
-    inConcentric = false;
     chartData.length = 0;
     updateUI();
-    liveVelocityEl.textContent = '0.00';
-    peakVelEl.textContent = '0.00';
-    romEl.textContent = '0';
-    recordBtn.textContent = 'Start Set';
-    recordBtn.classList.remove('recording');
-    statusPill.textContent = 'READY';
-    statusPill.classList.remove('live');
+    $('liveVelocity').textContent = '0.00';
+    $('recordBtn').textContent = 'Start Set';
+    $('recordBtn').classList.remove('recording');
+    $('statusPill').textContent = 'READY';
+    $('statusPill').className = 'status-pill';
+    document.querySelector('.hero').style.borderColor = '';
   });
 
-  // Init chart size on load
-  window.addEventListener('load', () => {
-    setTimeout(drawChart, 100);
+  $('undoBtn').addEventListener('click', () => {
+    if (reps.length === 0) return;
+    reps.pop();
+    reps.forEach((r, i) => r.number = i + 1);
+    updateUI();
   });
 
-  window.addEventListener('resize', () => {
-    chartCtx = null;
-    drawChart();
+  // Settings UI
+  function openSettings() {
+    // sync sliders
+    $('minRom').value = settings.minRomCm;
+    $('minRomVal').textContent = settings.minRomCm + ' cm';
+    $('startThresh').value = settings.startThresh;
+    $('startThreshVal').textContent = settings.startThresh.toFixed(2) + ' m/s';
+    $('statThresh').value = settings.stationaryThresh;
+    $('statThreshVal').textContent = settings.stationaryThresh.toFixed(2) + ' m/s';
+    $('zeroStrength').value = settings.zeroStrength;
+    $('zeroStrengthVal').textContent = settings.zeroStrength.toFixed(2);
+    $('targetVel').value = settings.targetVel;
+    $('targetVelVal').textContent = settings.targetVel.toFixed(2) + ' m/s';
+
+    $('hapticToggle').classList.toggle('on', settings.haptic);
+    $('soundToggle').classList.toggle('on', settings.sound);
+    $('flashToggle').classList.toggle('on', settings.flashBelowTarget);
+
+    $('sheetBackdrop').classList.add('open');
+    $('settingsSheet').classList.add('open');
+  }
+
+  function closeSettings() {
+    $('sheetBackdrop').classList.remove('open');
+    $('settingsSheet').classList.remove('open');
+  }
+
+  $('settingsBtn').addEventListener('click', openSettings);
+  $('sheetBackdrop').addEventListener('click', closeSettings);
+  $('closeSettings').addEventListener('click', closeSettings);
+
+  // live update labels
+  $('minRom').addEventListener('input', e => {
+    $('minRomVal').textContent = e.target.value + ' cm';
+  });
+  $('startThresh').addEventListener('input', e => {
+    $('startThreshVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s';
+  });
+  $('statThresh').addEventListener('input', e => {
+    $('statThreshVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s';
+  });
+  $('zeroStrength').addEventListener('input', e => {
+    $('zeroStrengthVal').textContent = parseFloat(e.target.value).toFixed(2);
+  });
+  $('targetVel').addEventListener('input', e => {
+    $('targetVelVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s';
   });
 
-  // Prevent bounce scroll on iOS
+  // toggles
+  ['hapticToggle', 'soundToggle', 'flashToggle'].forEach(id => {
+    $(id).addEventListener('click', () => $(id).classList.toggle('on'));
+  });
+
+  $('saveSettings').addEventListener('click', () => {
+    settings.minRomCm = parseInt($('minRom').value);
+    settings.startThresh = parseFloat($('startThresh').value);
+    settings.stationaryThresh = parseFloat($('statThresh').value);
+    settings.zeroStrength = parseFloat($('zeroStrength').value);
+    settings.targetVel = parseFloat($('targetVel').value);
+    settings.haptic = $('hapticToggle').classList.contains('on');
+    settings.sound = $('soundToggle').classList.contains('on');
+    settings.flashBelowTarget = $('flashToggle').classList.contains('on');
+
+    localStorage.setItem('bv_settings', JSON.stringify(settings));
+    closeSettings();
+    if (navigator.vibrate) navigator.vibrate(30);
+  });
+
+  // Prevent bounce
   document.body.addEventListener('touchmove', e => {
-    if (e.target.closest('.reps-list')) return;
-    e.preventDefault();
+    if (!e.target.closest('.reps-list') && !e.target.closest('.sheet')) {
+      e.preventDefault();
+    }
   }, { passive: false });
+
+  window.addEventListener('load', () => setTimeout(drawChart, 150));
+  window.addEventListener('resize', () => { chartCtx = null; drawChart(); });
 })();
 </script>
 </body>
