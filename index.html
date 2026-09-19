@@ -7,6 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#050505">
 <title>BarVelocity Pro</title>
+<!-- Favicon / Tab logo -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23050505'/%3E%3Cpath d='M22 68 L50 22 L78 68' stroke='%2300e5a0' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='50' cy='72' r='8' fill='%2300e5a0'/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -20,31 +22,26 @@
     --danger: #ff4757;
     --warning: #ffa502;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
   html, body {
     height: 100%;
     background: var(--bg);
     color: var(--text);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
-    overscroll-behavior: none;
+    overscroll-behavior-y: contain;
   }
-
   body {
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
-
   .app {
     max-width: 430px;
     margin: 0 auto;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    padding: 12px 16px 28px;
+    padding: 12px 16px 36px;
   }
-
   /* Header */
   .header {
     display: flex;
@@ -52,7 +49,6 @@
     align-items: center;
     margin-bottom: 18px;
   }
-
   .logo {
     font-weight: 800;
     font-size: 18px;
@@ -63,13 +59,11 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-
   .header-right {
     display: flex;
     gap: 8px;
     align-items: center;
   }
-
   .status-pill {
     font-size: 11px;
     font-weight: 600;
@@ -89,7 +83,6 @@
     color: var(--danger);
     border-color: rgba(255, 71, 87, 0.35);
   }
-
   .icon-btn {
     width: 36px;
     height: 36px;
@@ -102,7 +95,6 @@
     justify-content: center;
     font-size: 16px;
   }
-
   /* Hero */
   .hero {
     background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
@@ -124,7 +116,6 @@
     background: radial-gradient(circle at 50% 30%, rgba(0, 229, 160, 0.07) 0%, transparent 55%);
     pointer-events: none;
   }
-
   .hero-label {
     font-size: 12px;
     font-weight: 600;
@@ -133,7 +124,6 @@
     letter-spacing: 1.5px;
     margin-bottom: 6px;
   }
-
   .velocity-display {
     font-family: 'JetBrains Mono', monospace;
     font-size: 68px;
@@ -144,13 +134,11 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-
   .velocity-unit {
     font-size: 15px;
     color: var(--muted);
     margin-top: 2px;
   }
-
   .velocity-sub {
     display: flex;
     justify-content: center;
@@ -168,7 +156,6 @@
     color: var(--muted);
     margin-top: 2px;
   }
-
   /* Metrics */
   .metrics {
     display: grid;
@@ -195,7 +182,6 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
   }
-
   /* Graph */
   .graph-container {
     background: var(--card);
@@ -207,7 +193,6 @@
     position: relative;
   }
   canvas { width: 100%; height: 100%; display: block; }
-
   /* Controls */
   .controls {
     display: grid;
@@ -215,7 +200,6 @@
     gap: 10px;
     margin-bottom: 12px;
   }
-
   button {
     border: none;
     border-radius: 16px;
@@ -231,7 +215,6 @@
     gap: 6px;
   }
   button:active { transform: scale(0.97); }
-
   .btn-secondary {
     background: #1a1a1a;
     color: var(--text);
@@ -251,14 +234,12 @@
     color: var(--danger);
     border: 1px solid rgba(255, 71, 87, 0.3);
   }
-
   .secondary-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-bottom: 18px;
   }
-
   /* Reps */
   .section-title {
     font-size: 13px;
@@ -269,17 +250,17 @@
     justify-content: space-between;
     align-items: center;
   }
-
   .reps-list {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
     overflow: hidden;
     margin-bottom: 16px;
-    max-height: 220px;
+    max-height: 320px;          /* taller for easier scrolling */
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
-
   .rep-row {
     display: grid;
     grid-template-columns: 36px 1fr 1fr 1fr 32px;
@@ -298,6 +279,7 @@
     font-weight: 600;
     position: sticky;
     top: 0;
+    z-index: 2;
   }
   .rep-num { font-weight: 700; color: var(--accent); }
   .mono { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
@@ -310,15 +292,13 @@
     width: 28px;
     height: 28px;
   }
-
   .tips {
     font-size: 12px;
     color: var(--muted);
     line-height: 1.5;
     text-align: center;
-    padding: 0 4px;
+    padding: 0 4px 8px;
   }
-
   /* Overlay */
   .overlay {
     position: fixed;
@@ -347,7 +327,6 @@
     padding: 17px;
     font-size: 16px;
   }
-
   /* Settings Sheet */
   .sheet-backdrop {
     position: fixed;
@@ -362,7 +341,6 @@
     opacity: 1;
     pointer-events: auto;
   }
-
   .sheet {
     position: fixed;
     left: 0;
@@ -377,12 +355,12 @@
     z-index: 160;
     transform: translateY(110%);
     transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-    max-height: 85dvh;
+    max-height: 88dvh;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 12px 20px 40px;
   }
   .sheet.open { transform: translateY(0); }
-
   .sheet-handle {
     width: 40px;
     height: 4px;
@@ -390,13 +368,11 @@
     border-radius: 4px;
     margin: 0 auto 18px;
   }
-
   .sheet h3 {
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 20px;
   }
-
   .setting-group {
     margin-bottom: 22px;
   }
@@ -412,7 +388,6 @@
     color: var(--accent);
     font-family: 'JetBrains Mono', monospace;
   }
-
   input[type="range"] {
     width: 100%;
     -webkit-appearance: none;
@@ -430,7 +405,27 @@
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 229, 160, 0.4);
   }
-
+  .unit-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .unit-btn {
+    flex: 1;
+    padding: 10px 6px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 12px;
+    background: #1a1a1a;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .unit-btn.active {
+    background: rgba(0, 229, 160, 0.15);
+    color: var(--accent);
+    border-color: rgba(0, 229, 160, 0.4);
+  }
   .toggle-row {
     display: flex;
     justify-content: space-between;
@@ -439,7 +434,6 @@
     border-bottom: 1px solid var(--border);
   }
   .toggle-row:last-child { border-bottom: none; }
-
   .toggle {
     width: 48px;
     height: 28px;
@@ -462,7 +456,6 @@
     transition: transform 0.2s;
   }
   .toggle.on::after { transform: translateX(20px); }
-
   .sheet-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -480,11 +473,10 @@
         <button class="icon-btn" id="settingsBtn" title="Settings">⚙</button>
       </div>
     </div>
-
     <div class="hero">
       <div class="hero-label">Live Velocity</div>
       <div class="velocity-display" id="liveVelocity">0.00</div>
-      <div class="velocity-unit">m/s</div>
+      <div class="velocity-unit" id="velocityUnitLabel">m/s</div>
       <div class="velocity-sub">
         <div class="sub-item">
           <div class="sub-value" id="peakVel">0.00</div>
@@ -492,7 +484,7 @@
         </div>
         <div class="sub-item">
           <div class="sub-value" id="rom">0</div>
-          <div class="sub-label">ROM (cm)</div>
+          <div class="sub-label" id="romUnitLabel">ROM (cm)</div>
         </div>
         <div class="sub-item">
           <div class="sub-value" id="repCount">0</div>
@@ -500,7 +492,6 @@
         </div>
       </div>
     </div>
-
     <div class="metrics">
       <div class="metric-card">
         <div class="metric-value" id="setMean">—</div>
@@ -515,22 +506,18 @@
         <div class="metric-label">Best Rep</div>
       </div>
     </div>
-
     <div class="graph-container">
       <canvas id="velocityChart"></canvas>
     </div>
-
     <div class="controls">
       <button class="btn-secondary" id="zeroBtn">Zero</button>
       <button class="btn-primary" id="recordBtn">Start Set</button>
       <button class="btn-danger" id="resetBtn">Reset</button>
     </div>
-
     <div class="secondary-row">
       <button class="btn-secondary" id="calibrateBtn">Calibrate</button>
       <button class="btn-secondary" id="undoBtn">Undo Last Rep</button>
     </div>
-
     <div class="section-title">
       <span>Recent Reps</span>
       <span id="setInfo">Set not started</span>
@@ -544,24 +531,39 @@
         <div></div>
       </div>
     </div>
-
     <div class="tips">
-      Mount phone firmly on the bar. Tap <strong>Zero</strong> when the bar is completely still if velocity drifts. Adjust min ROM in Settings.
+      Mount phone firmly on the bar. Tap <strong>Zero</strong> when the bar is completely still if velocity drifts. Adjust min ROM & units in Settings.
     </div>
   </div>
-
   <!-- Permission -->
   <div class="overlay" id="permissionOverlay">
     <h2>Enable Motion Sensors</h2>
     <p>BarVelocity Pro needs access to your iPhone’s accelerometer and gyroscope to measure barbell velocity.</p>
     <button class="btn-primary" id="enableMotionBtn">Enable Motion Access</button>
   </div>
-
   <!-- Settings Sheet -->
   <div class="sheet-backdrop" id="sheetBackdrop"></div>
   <div class="sheet" id="settingsSheet">
     <div class="sheet-handle"></div>
     <h3>Settings</h3>
+
+    <!-- Units -->
+    <div class="setting-group">
+      <div class="setting-label"><span>Velocity Units</span></div>
+      <div class="unit-row" id="velUnitRow">
+        <button class="unit-btn" data-unit="m/s">m/s</button>
+        <button class="unit-btn" data-unit="cm/s">cm/s</button>
+        <button class="unit-btn" data-unit="in/s">in/s</button>
+        <button class="unit-btn" data-unit="ft/s">ft/s</button>
+      </div>
+    </div>
+    <div class="setting-group">
+      <div class="setting-label"><span>ROM Units</span></div>
+      <div class="unit-row" id="romUnitRow">
+        <button class="unit-btn" data-unit="cm">cm</button>
+        <button class="unit-btn" data-unit="in">in</button>
+      </div>
+    </div>
 
     <div class="setting-group">
       <div class="setting-label">
@@ -570,7 +572,6 @@
       </div>
       <input type="range" id="minRom" min="5" max="60" step="1" value="15">
     </div>
-
     <div class="setting-group">
       <div class="setting-label">
         <span>Start Velocity Threshold</span>
@@ -578,7 +579,6 @@
       </div>
       <input type="range" id="startThresh" min="0.05" max="0.35" step="0.01" value="0.12">
     </div>
-
     <div class="setting-group">
       <div class="setting-label">
         <span>Stationary Threshold</span>
@@ -586,7 +586,6 @@
       </div>
       <input type="range" id="statThresh" min="0.02" max="0.15" step="0.01" value="0.06">
     </div>
-
     <div class="setting-group">
       <div class="setting-label">
         <span>Zero Strength (higher = faster zero)</span>
@@ -594,7 +593,6 @@
       </div>
       <input type="range" id="zeroStrength" min="0.3" max="0.95" step="0.05" value="0.75">
     </div>
-
     <div class="setting-group">
       <div class="setting-label">
         <span>Target Velocity (for feedback)</span>
@@ -602,7 +600,6 @@
       </div>
       <input type="range" id="targetVel" min="0.20" max="1.20" step="0.05" value="0.50">
     </div>
-
     <div class="setting-group">
       <div class="toggle-row">
         <span>Haptic feedback on rep</span>
@@ -617,13 +614,11 @@
         <div class="toggle on" id="flashToggle"></div>
       </div>
     </div>
-
     <div class="sheet-actions">
       <button class="btn-secondary" id="closeSettings">Close</button>
       <button class="btn-primary" id="saveSettings">Save</button>
     </div>
   </div>
-
 <script>
 (() => {
   // ========== SETTINGS (persisted) ==========
@@ -635,19 +630,52 @@
     targetVel: 0.50,
     haptic: true,
     sound: false,
-    flashBelowTarget: true
+    flashBelowTarget: true,
+    velUnit: 'm/s',   // m/s | cm/s | in/s | ft/s
+    romUnit: 'cm'     // cm | in
   };
-
   let settings = { ...defaultSettings };
   try {
     const saved = localStorage.getItem('bv_settings');
     if (saved) settings = { ...defaultSettings, ...JSON.parse(saved) };
   } catch(e) {}
 
+  // ========== UNIT HELPERS ==========
+  // Internal physics always in m/s and meters
+  function toDisplayVel(ms) {
+    switch (settings.velUnit) {
+      case 'cm/s': return ms * 100;
+      case 'in/s': return ms * 39.3701;
+      case 'ft/s': return ms * 3.28084;
+      default:     return ms;
+    }
+  }
+  function fromDisplayVel(val) { // for thresholds shown in settings
+    switch (settings.velUnit) {
+      case 'cm/s': return val / 100;
+      case 'in/s': return val / 39.3701;
+      case 'ft/s': return val / 3.28084;
+      default:     return val;
+    }
+  }
+  function formatVel(ms, digits = 2) {
+    return toDisplayVel(ms).toFixed(digits);
+  }
+  function toDisplayRom(cm) {
+    return settings.romUnit === 'in' ? cm / 2.54 : cm;
+  }
+  function formatRom(cm) {
+    const v = toDisplayRom(cm);
+    return settings.romUnit === 'in' ? v.toFixed(1) : Math.round(v);
+  }
+  function updateUnitLabels() {
+    $('velocityUnitLabel').textContent = settings.velUnit;
+    $('romUnitLabel').textContent = `ROM (${settings.romUnit})`;
+  }
+
   // ========== STATE ==========
   let isRecording = false;
   let permissionGranted = false;
-
   // Sensor fusion
   let gravity = { x: 0, y: 0, z: 9.81 };
   let velocity = 0;
@@ -655,18 +683,17 @@
   let lastTimestamp = null;
   let lastAccel = 0;
   let stationarySamples = 0;
-
+  // Velocity history for flat-line detection
+  const velHistory = [];
+  const HISTORY_LEN = 14;
   // Rep state machine
-  // States: 'idle' | 'concentric'
   let repState = 'idle';
   let currentRep = null;
   let reps = [];
-
   // Chart
   const chartData = [];
   const MAX_POINTS = 140;
   let chartCtx = null;
-
   // DOM shortcuts
   const $ = id => document.getElementById(id);
 
@@ -695,9 +722,7 @@
     if (!e.accelerationIncludingGravity) return;
     const now = e.timeStamp || performance.now();
     const aig = e.accelerationIncludingGravity;
-
     let linX = 0, linY = 0, linZ = 0;
-
     if (e.acceleration && e.acceleration.x !== null) {
       linX = e.acceleration.x || 0;
       linY = e.acceleration.y || 0;
@@ -711,16 +736,13 @@
       linY = (aig.y || 0) - gravity.y;
       linZ = (aig.z || 0) - gravity.z;
     }
-
     // Project linear acceleration onto the gravity vector (vertical)
     const gMag = Math.hypot(gravity.x, gravity.y, gravity.z) || 9.81;
     const gx = gravity.x / gMag;
     const gy = gravity.y / gMag;
     const gz = gravity.z / gMag;
-
     // Positive = upward (against gravity)
     const accel = -(linX * gx + linY * gy + linZ * gz);
-
     processSample(accel, now);
   }
 
@@ -729,9 +751,8 @@
       lastTimestamp = timestamp;
       return;
     }
-
     let dt = (timestamp - lastTimestamp) / 1000;
-    if (dt <= 0 || dt > 0.08) dt = 0.016; // safety
+    if (dt <= 0 || dt > 0.08) dt = 0.016;
     lastTimestamp = timestamp;
 
     // Light low-pass on acceleration
@@ -741,19 +762,33 @@
     // Integrate acceleration → velocity
     velocity += accel * dt;
 
-    // ========== STRONG ZERO-VELOCITY UPDATE ==========
-    const isStationary = Math.abs(velocity) < settings.stationaryThresh && Math.abs(accel) < 0.55;
+    // ===== IMPROVED ZERO-VELOCITY / FLAT-LINE DETECTION =====
+    velHistory.push(velocity);
+    if (velHistory.length > HISTORY_LEN) velHistory.shift();
+
+    let isFlat = false;
+    if (velHistory.length >= HISTORY_LEN) {
+      const mean = velHistory.reduce((a, b) => a + b, 0) / velHistory.length;
+      let variance = 0;
+      for (const v of velHistory) variance += (v - mean) * (v - mean);
+      variance /= velHistory.length;
+      const std = Math.sqrt(variance);
+      // Flat line = very low variation (line is level)
+      isFlat = std < 0.018;
+    }
+
+    const isStationary = (Math.abs(velocity) < settings.stationaryThresh && Math.abs(accel) < 0.55) ||
+                         (isFlat && Math.abs(accel) < 0.70);
 
     if (isStationary) {
       stationarySamples++;
-      // After a short confirmation window, force velocity toward zero aggressively
-      if (stationarySamples >= 5) {
-        velocity *= (1 - settings.zeroStrength);
-        if (Math.abs(velocity) < 0.015) {
+      if (stationarySamples >= 4) {
+        // Stronger pull toward zero when the line is flat
+        const strength = isFlat ? Math.min(0.92, settings.zeroStrength + 0.15) : settings.zeroStrength;
+        velocity *= (1 - strength);
+        if (Math.abs(velocity) < 0.012 || (isFlat && Math.abs(velocity) < 0.04)) {
           velocity = 0;
         }
-        // Softly freeze position drift while stationary
-        // (we don't fully reset position so ROM still works across a set)
       }
     } else {
       stationarySamples = 0;
@@ -762,9 +797,9 @@
     // Integrate velocity → position
     position += velocity * dt;
 
-    // Live UI
+    // Live UI (converted)
     const absV = Math.abs(velocity);
-    $('liveVelocity').textContent = absV.toFixed(2);
+    $('liveVelocity').textContent = formatVel(absV);
 
     // Optional flash if below target during concentric
     if (settings.flashBelowTarget && isRecording && repState === 'concentric' && absV > 0.08) {
@@ -776,7 +811,7 @@
       }
     }
 
-    // Chart
+    // Chart (always plot internal m/s)
     chartData.push(velocity);
     if (chartData.length > MAX_POINTS) chartData.shift();
     drawChart();
@@ -785,7 +820,6 @@
 
     // ========== REP STATE MACHINE ==========
     if (repState === 'idle') {
-      // Start a new concentric when we see clear upward velocity
       if (velocity > settings.startThresh) {
         repState = 'concentric';
         currentRep = {
@@ -803,19 +837,11 @@
       if (velocity > currentRep.peakVel) currentRep.peakVel = velocity;
       if (position > currentRep.maxPos) currentRep.maxPos = position;
 
-      const romSoFar = currentRep.maxPos - currentRep.startPos;
-
-      // End conditions:
-      // 1. Velocity has returned near zero (or slightly negative)
-      // 2. We have enough samples
-      // 3. ROM is meaningful
       const nearZero = velocity < settings.stationaryThresh * 1.4;
       const enoughData = currentRep.count > 8;
-
       if (nearZero && enoughData) {
         const romMeters = currentRep.maxPos - currentRep.startPos;
         const romCm = romMeters * 100;
-
         if (romCm >= settings.minRomCm) {
           const meanVel = currentRep.sumVel / currentRep.count;
           const rep = {
@@ -827,23 +853,24 @@
           reps.push(rep);
           onRepComplete(rep);
         }
-        // Whether valid or not, return to idle
         repState = 'idle';
         currentRep = null;
+        // Force a clean zero after every rep
+        forceZero();
       }
-
-      // Safety: if we somehow go strongly negative for a long time, abort
+      // Safety abort
       if (velocity < -0.45 && currentRep.count > 15) {
         repState = 'idle';
         currentRep = null;
+        forceZero();
       }
     }
 
     // Live peak / ROM during active rep
     if (currentRep) {
-      $('peakVel').textContent = currentRep.peakVel.toFixed(2);
-      const liveRom = Math.max(0, (currentRep.maxPos - currentRep.startPos) * 100);
-      $('rom').textContent = Math.round(liveRom);
+      $('peakVel').textContent = formatVel(currentRep.peakVel);
+      const liveRomCm = Math.max(0, (currentRep.maxPos - currentRep.startPos) * 100);
+      $('rom').textContent = formatRom(liveRomCm);
     }
   }
 
@@ -853,7 +880,6 @@
       navigator.vibrate(45);
     }
     if (settings.sound) {
-      // Simple beep using Web Audio
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
@@ -873,35 +899,33 @@
     velocity = 0;
     lastAccel = 0;
     stationarySamples = 20;
-    $('liveVelocity').textContent = '0.00';
+    velHistory.length = 0;
+    $('liveVelocity').textContent = formatVel(0);
     if (navigator.vibrate) navigator.vibrate(25);
   }
 
   // ========== UI ==========
   function updateUI() {
     $('repCount').textContent = reps.length;
-
     if (reps.length === 0) {
       $('setMean').textContent = '—';
       $('velLoss').textContent = '—';
       $('bestRep').textContent = '—';
       $('setInfo').textContent = isRecording ? 'Waiting for first rep…' : 'Set not started';
-      $('peakVel').textContent = '0.00';
-      $('rom').textContent = '0';
+      $('peakVel').textContent = formatVel(0);
+      $('rom').textContent = formatRom(0);
       return;
     }
-
     const means = reps.map(r => r.mean);
     const setMean = means.reduce((a, b) => a + b, 0) / means.length;
     const best = Math.max(...means);
     const last = means[means.length - 1];
     const loss = best > 0 ? ((best - last) / best) * 100 : 0;
-
-    $('setMean').textContent = setMean.toFixed(2);
+    $('setMean').textContent = formatVel(setMean);
     $('velLoss').textContent = loss.toFixed(0) + '%';
-    $('bestRep').textContent = best.toFixed(2);
-    $('peakVel').textContent = reps[reps.length - 1].peak.toFixed(2);
-    $('rom').textContent = Math.round(reps[reps.length - 1].rom);
+    $('bestRep').textContent = formatVel(best);
+    $('peakVel').textContent = formatVel(reps[reps.length - 1].peak);
+    $('rom').textContent = formatRom(reps[reps.length - 1].rom);
     $('setInfo').textContent = `${reps.length} rep${reps.length > 1 ? 's' : ''} recorded`;
 
     // Rebuild list
@@ -909,27 +933,23 @@
     const header = list.querySelector('.header');
     list.innerHTML = '';
     list.appendChild(header);
-
     [...reps].reverse().forEach((r, idx) => {
       const realIndex = reps.length - 1 - idx;
       const row = document.createElement('div');
       row.className = 'rep-row';
       row.innerHTML = `
         <div class="rep-num">${r.number}</div>
-        <div class="mono">${r.mean.toFixed(2)}</div>
-        <div class="mono">${r.peak.toFixed(2)}</div>
-        <div class="mono">${Math.round(r.rom)}</div>
+        <div class="mono">${formatVel(r.mean)}</div>
+        <div class="mono">${formatVel(r.peak)}</div>
+        <div class="mono">${formatRom(r.rom)}</div>
         <button class="del-rep" data-idx="${realIndex}">×</button>
       `;
       list.appendChild(row);
     });
-
-    // Delete handlers
     list.querySelectorAll('.del-rep').forEach(btn => {
       btn.addEventListener('click', () => {
         const i = parseInt(btn.dataset.idx);
         reps.splice(i, 1);
-        // renumber
         reps.forEach((r, n) => r.number = n + 1);
         updateUI();
       });
@@ -945,11 +965,9 @@
       chartCtx = canvas.getContext('2d');
       chartCtx.scale(devicePixelRatio, devicePixelRatio);
     }
-
     const w = canvas.width / devicePixelRatio;
     const h = canvas.height / devicePixelRatio;
     chartCtx.clearRect(0, 0, w, h);
-
     // zero line
     chartCtx.strokeStyle = '#1c1c1c';
     chartCtx.lineWidth = 1;
@@ -957,17 +975,13 @@
     chartCtx.moveTo(0, h / 2);
     chartCtx.lineTo(w, h / 2);
     chartCtx.stroke();
-
     if (chartData.length < 2) return;
-
     const maxAbs = Math.max(0.7, ...chartData.map(Math.abs));
     const scale = (h * 0.40) / maxAbs;
-
     chartCtx.beginPath();
     chartCtx.strokeStyle = '#00e5a0';
     chartCtx.lineWidth = 2.2;
     chartCtx.lineJoin = 'round';
-
     chartData.forEach((v, i) => {
       const x = (i / (MAX_POINTS - 1)) * w;
       const y = h / 2 - v * scale;
@@ -979,9 +993,7 @@
 
   // ========== CONTROLS ==========
   $('enableMotionBtn').addEventListener('click', requestMotionPermission);
-
   $('zeroBtn').addEventListener('click', forceZero);
-
   $('calibrateBtn').addEventListener('click', () => {
     gravity = { x: 0, y: 0, z: 9.81 };
     forceZero();
@@ -990,15 +1002,12 @@
     $('statusPill').className = 'status-pill live';
     if (navigator.vibrate) navigator.vibrate([20, 40, 20]);
   });
-
   $('recordBtn').addEventListener('click', () => {
     if (!permissionGranted) {
       requestMotionPermission();
       return;
     }
-
     isRecording = !isRecording;
-
     if (isRecording) {
       reps = [];
       repState = 'idle';
@@ -1006,7 +1015,6 @@
       forceZero();
       position = 0;
       updateUI();
-
       $('recordBtn').textContent = 'Stop Set';
       $('recordBtn').classList.add('recording');
       $('statusPill').textContent = 'RECORDING';
@@ -1019,7 +1027,6 @@
       document.querySelector('.hero').style.borderColor = '';
     }
   });
-
   $('resetBtn').addEventListener('click', () => {
     isRecording = false;
     reps = [];
@@ -1029,14 +1036,13 @@
     position = 0;
     chartData.length = 0;
     updateUI();
-    $('liveVelocity').textContent = '0.00';
+    $('liveVelocity').textContent = formatVel(0);
     $('recordBtn').textContent = 'Start Set';
     $('recordBtn').classList.remove('recording');
     $('statusPill').textContent = 'READY';
     $('statusPill').className = 'status-pill';
     document.querySelector('.hero').style.borderColor = '';
   });
-
   $('undoBtn').addEventListener('click', () => {
     if (reps.length === 0) return;
     reps.pop();
@@ -1046,7 +1052,6 @@
 
   // Settings UI
   function openSettings() {
-    // sync sliders
     $('minRom').value = settings.minRomCm;
     $('minRomVal').textContent = settings.minRomCm + ' cm';
     $('startThresh').value = settings.startThresh;
@@ -1057,20 +1062,25 @@
     $('zeroStrengthVal').textContent = settings.zeroStrength.toFixed(2);
     $('targetVel').value = settings.targetVel;
     $('targetVelVal').textContent = settings.targetVel.toFixed(2) + ' m/s';
-
     $('hapticToggle').classList.toggle('on', settings.haptic);
     $('soundToggle').classList.toggle('on', settings.sound);
     $('flashToggle').classList.toggle('on', settings.flashBelowTarget);
 
+    // Unit buttons
+    document.querySelectorAll('#velUnitRow .unit-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.unit === settings.velUnit);
+    });
+    document.querySelectorAll('#romUnitRow .unit-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.unit === settings.romUnit);
+    });
+
     $('sheetBackdrop').classList.add('open');
     $('settingsSheet').classList.add('open');
   }
-
   function closeSettings() {
     $('sheetBackdrop').classList.remove('open');
     $('settingsSheet').classList.remove('open');
   }
-
   $('settingsBtn').addEventListener('click', openSettings);
   $('sheetBackdrop').addEventListener('click', closeSettings);
   $('closeSettings').addEventListener('click', closeSettings);
@@ -1092,6 +1102,20 @@
     $('targetVelVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s';
   });
 
+  // Unit selectors
+  document.querySelectorAll('#velUnitRow .unit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#velUnitRow .unit-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  document.querySelectorAll('#romUnitRow .unit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#romUnitRow .unit-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
   // toggles
   ['hapticToggle', 'soundToggle', 'flashToggle'].forEach(id => {
     $(id).addEventListener('click', () => $(id).classList.toggle('on'));
@@ -1107,18 +1131,30 @@
     settings.sound = $('soundToggle').classList.contains('on');
     settings.flashBelowTarget = $('flashToggle').classList.contains('on');
 
+    const activeVel = document.querySelector('#velUnitRow .unit-btn.active');
+    const activeRom = document.querySelector('#romUnitRow .unit-btn.active');
+    if (activeVel) settings.velUnit = activeVel.dataset.unit;
+    if (activeRom) settings.romUnit = activeRom.dataset.unit;
+
     localStorage.setItem('bv_settings', JSON.stringify(settings));
+    updateUnitLabels();
+    updateUI();
     closeSettings();
     if (navigator.vibrate) navigator.vibrate(30);
   });
 
-  // Prevent bounce
+  // Allow natural scrolling on the reps list and settings sheet
   document.body.addEventListener('touchmove', e => {
     if (!e.target.closest('.reps-list') && !e.target.closest('.sheet')) {
-      e.preventDefault();
+      // only prevent on the main locked areas
+      if (e.target.closest('.hero') || e.target.closest('.controls') || e.target.closest('.metrics')) {
+        e.preventDefault();
+      }
     }
   }, { passive: false });
 
+  // Initial labels
+  updateUnitLabels();
   window.addEventListener('load', () => setTimeout(drawChart, 150));
   window.addEventListener('resize', () => { chartCtx = null; drawChart(); });
 })();
