@@ -256,7 +256,7 @@
     border-radius: 16px;
     overflow: hidden;
     margin-bottom: 16px;
-    max-height: 320px;          /* taller for easier scrolling */
+    max-height: 320px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
@@ -631,8 +631,8 @@
     haptic: true,
     sound: false,
     flashBelowTarget: true,
-    velUnit: 'm/s',   // m/s | cm/s | in/s | ft/s
-    romUnit: 'cm'     // cm | in
+    velUnit: 'm/s',
+    romUnit: 'cm'
   };
   let settings = { ...defaultSettings };
   try {
@@ -641,21 +641,12 @@
   } catch(e) {}
 
   // ========== UNIT HELPERS ==========
-  // Internal physics always in m/s and meters
   function toDisplayVel(ms) {
     switch (settings.velUnit) {
       case 'cm/s': return ms * 100;
       case 'in/s': return ms * 39.3701;
       case 'ft/s': return ms * 3.28084;
       default:     return ms;
-    }
-  }
-  function fromDisplayVel(val) { // for thresholds shown in settings
-    switch (settings.velUnit) {
-      case 'cm/s': return val / 100;
-      case 'in/s': return val / 39.3701;
-      case 'ft/s': return val / 3.28084;
-      default:     return val;
     }
   }
   function formatVel(ms, digits = 2) {
@@ -676,25 +667,27 @@
   // ========== STATE ==========
   let isRecording = false;
   let permissionGranted = false;
-  // Sensor fusion
   let gravity = { x: 0, y: 0, z: 9.81 };
   let velocity = 0;
   let position = 0;
   let lastTimestamp = null;
   let lastAccel = 0;
   let stationarySamples = 0;
-  // Velocity history for flat-line detection
   const velHistory = [];
   const HISTORY_LEN = 14;
+
   // Rep state machine
-  let repState = 'idle';
+  let repState = 'idle';          // 'idle' | 'concentric'
   let currentRep = null;
   let reps = [];
+  let endConfirm = 0;             // consecutive near-zero samples
+  let lastRepEndTime = 0;         // timestamp of last completed rep (ms)
+  const REP_COOLDOWN_MS = 420;    // prevent double-counting
+
   // Chart
   const chartData = [];
   const MAX_POINTS = 140;
   let chartCtx = null;
-  // DOM shortcuts
   const $ = id => document.getElementById(id);
 
   // ========== SENSOR ==========
@@ -736,12 +729,10 @@
       linY = (aig.y || 0) - gravity.y;
       linZ = (aig.z || 0) - gravity.z;
     }
-    // Project linear acceleration onto the gravity vector (vertical)
     const gMag = Math.hypot(gravity.x, gravity.y, gravity.z) || 9.81;
     const gx = gravity.x / gMag;
     const gy = gravity.y / gMag;
     const gz = gravity.z / gMag;
-    // Positive = upward (against gravity)
     const accel = -(linX * gx + linY * gy + linZ * gz);
     processSample(accel, now);
   }
@@ -755,14 +746,12 @@
     if (dt <= 0 || dt > 0.08) dt = 0.016;
     lastTimestamp = timestamp;
 
-    // Light low-pass on acceleration
     const accel = 0.65 * lastAccel + 0.35 * rawAccel;
     lastAccel = accel;
 
-    // Integrate acceleration → velocity
     velocity += accel * dt;
 
-    // ===== IMPROVED ZERO-VELOCITY / FLAT-LINE DETECTION =====
+    // Flat-line / zero-velocity detection
     velHistory.push(velocity);
     if (velHistory.length > HISTORY_LEN) velHistory.shift();
 
@@ -773,7 +762,6 @@
       for (const v of velHistory) variance += (v - mean) * (v - mean);
       variance /= velHistory.length;
       const std = Math.sqrt(variance);
-      // Flat line = very low variation (line is level)
       isFlat = std < 0.018;
     }
 
@@ -783,7 +771,6 @@
     if (isStationary) {
       stationarySamples++;
       if (stationarySamples >= 4) {
-        // Stronger pull toward zero when the line is flat
         const strength = isFlat ? Math.min(0.92, settings.zeroStrength + 0.15) : settings.zeroStrength;
         velocity *= (1 - strength);
         if (Math.abs(velocity) < 0.012 || (isFlat && Math.abs(velocity) < 0.04)) {
@@ -794,34 +781,29 @@
       stationarySamples = 0;
     }
 
-    // Integrate velocity → position
     position += velocity * dt;
 
-    // Live UI (converted)
+    // Live UI
     const absV = Math.abs(velocity);
     $('liveVelocity').textContent = formatVel(absV);
 
-    // Optional flash if below target during concentric
     if (settings.flashBelowTarget && isRecording && repState === 'concentric' && absV > 0.08) {
       const hero = document.querySelector('.hero');
-      if (absV < settings.targetVel) {
-        hero.style.borderColor = 'rgba(255, 165, 2, 0.5)';
-      } else {
-        hero.style.borderColor = '';
-      }
+      hero.style.borderColor = absV < settings.targetVel ? 'rgba(255, 165, 2, 0.5)' : '';
     }
 
-    // Chart (always plot internal m/s)
     chartData.push(velocity);
     if (chartData.length > MAX_POINTS) chartData.shift();
     drawChart();
 
     if (!isRecording) return;
 
-    // ========== REP STATE MACHINE ==========
+    // ========== REP STATE MACHINE (fixed double-count) ==========
     if (repState === 'idle') {
-      if (velocity > settings.startThresh) {
+      // Cooldown prevents immediate re-trigger after a rep
+      if (velocity > settings.startThresh && (timestamp - lastRepEndTime > REP_COOLDOWN_MS)) {
         repState = 'concentric';
+        endConfirm = 0;
         currentRep = {
           startPos: position,
           peakVel: velocity,
@@ -837,9 +819,15 @@
       if (velocity > currentRep.peakVel) currentRep.peakVel = velocity;
       if (position > currentRep.maxPos) currentRep.maxPos = position;
 
-      const nearZero = velocity < settings.stationaryThresh * 1.4;
-      const enoughData = currentRep.count > 8;
-      if (nearZero && enoughData) {
+      // Require sustained near-zero before ending
+      if (velocity < settings.stationaryThresh * 1.5) {
+        endConfirm++;
+      } else {
+        endConfirm = 0;
+      }
+
+      const enoughData = currentRep.count > 10;
+      if (endConfirm >= 5 && enoughData) {
         const romMeters = currentRep.maxPos - currentRep.startPos;
         const romCm = romMeters * 100;
         if (romCm >= settings.minRomCm) {
@@ -853,15 +841,20 @@
           reps.push(rep);
           onRepComplete(rep);
         }
+        // End the rep cleanly
         repState = 'idle';
         currentRep = null;
-        // Force a clean zero after every rep
+        endConfirm = 0;
+        lastRepEndTime = timestamp;
         forceZero();
       }
-      // Safety abort
-      if (velocity < -0.45 && currentRep.count > 15) {
+
+      // Safety abort on strong negative velocity
+      if (velocity < -0.45 && currentRep && currentRep.count > 15) {
         repState = 'idle';
         currentRep = null;
+        endConfirm = 0;
+        lastRepEndTime = timestamp;
         forceZero();
       }
     }
@@ -928,7 +921,6 @@
     $('rom').textContent = formatRom(reps[reps.length - 1].rom);
     $('setInfo').textContent = `${reps.length} rep${reps.length > 1 ? 's' : ''} recorded`;
 
-    // Rebuild list
     const list = $('repsList');
     const header = list.querySelector('.header');
     list.innerHTML = '';
@@ -968,7 +960,6 @@
     const w = canvas.width / devicePixelRatio;
     const h = canvas.height / devicePixelRatio;
     chartCtx.clearRect(0, 0, w, h);
-    // zero line
     chartCtx.strokeStyle = '#1c1c1c';
     chartCtx.lineWidth = 1;
     chartCtx.beginPath();
@@ -1012,6 +1003,8 @@
       reps = [];
       repState = 'idle';
       currentRep = null;
+      endConfirm = 0;
+      lastRepEndTime = 0;
       forceZero();
       position = 0;
       updateUI();
@@ -1032,6 +1025,8 @@
     reps = [];
     repState = 'idle';
     currentRep = null;
+    endConfirm = 0;
+    lastRepEndTime = 0;
     forceZero();
     position = 0;
     chartData.length = 0;
@@ -1050,7 +1045,7 @@
     updateUI();
   });
 
-  // Settings UI
+  // Settings
   function openSettings() {
     $('minRom').value = settings.minRomCm;
     $('minRomVal').textContent = settings.minRomCm + ' cm';
@@ -1066,7 +1061,6 @@
     $('soundToggle').classList.toggle('on', settings.sound);
     $('flashToggle').classList.toggle('on', settings.flashBelowTarget);
 
-    // Unit buttons
     document.querySelectorAll('#velUnitRow .unit-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.unit === settings.velUnit);
     });
@@ -1085,7 +1079,6 @@
   $('sheetBackdrop').addEventListener('click', closeSettings);
   $('closeSettings').addEventListener('click', closeSettings);
 
-  // live update labels
   $('minRom').addEventListener('input', e => {
     $('minRomVal').textContent = e.target.value + ' cm';
   });
@@ -1102,7 +1095,6 @@
     $('targetVelVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s';
   });
 
-  // Unit selectors
   document.querySelectorAll('#velUnitRow .unit-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('#velUnitRow .unit-btn').forEach(b => b.classList.remove('active'));
@@ -1116,7 +1108,6 @@
     });
   });
 
-  // toggles
   ['hapticToggle', 'soundToggle', 'flashToggle'].forEach(id => {
     $(id).addEventListener('click', () => $(id).classList.toggle('on'));
   });
@@ -1143,17 +1134,14 @@
     if (navigator.vibrate) navigator.vibrate(30);
   });
 
-  // Allow natural scrolling on the reps list and settings sheet
   document.body.addEventListener('touchmove', e => {
     if (!e.target.closest('.reps-list') && !e.target.closest('.sheet')) {
-      // only prevent on the main locked areas
       if (e.target.closest('.hero') || e.target.closest('.controls') || e.target.closest('.metrics')) {
         e.preventDefault();
       }
     }
   }, { passive: false });
 
-  // Initial labels
   updateUnitLabels();
   window.addEventListener('load', () => setTimeout(drawChart, 150));
   window.addEventListener('resize', () => { chartCtx = null; drawChart(); });
