@@ -7,7 +7,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#050505">
 <title>BarVelocity Pro</title>
-<!-- Favicon / Tab logo -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23050505'/%3E%3Cpath d='M22 68 L50 22 L78 68' stroke='%2300e5a0' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='50' cy='72' r='8' fill='%2300e5a0'/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -42,7 +41,6 @@
     flex-direction: column;
     padding: 12px 16px 36px;
   }
-  /* Header */
   .header {
     display: flex;
     justify-content: space-between;
@@ -95,7 +93,6 @@
     justify-content: center;
     font-size: 16px;
   }
-  /* Hero */
   .hero {
     background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
     border: 1px solid var(--border);
@@ -156,33 +153,31 @@
     color: var(--muted);
     margin-top: 2px;
   }
-  /* Metrics */
   .metrics {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
     margin-bottom: 14px;
   }
   .metric-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 13px 8px;
+    border-radius: 14px;
+    padding: 11px 6px;
     text-align: center;
   }
   .metric-value {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 700;
   }
   .metric-label {
-    font-size: 10px;
+    font-size: 9px;
     color: var(--muted);
     margin-top: 3px;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
   }
-  /* Graph */
   .graph-container {
     background: var(--card);
     border: 1px solid var(--border);
@@ -193,7 +188,6 @@
     position: relative;
   }
   canvas { width: 100%; height: 100%; display: block; }
-  /* Controls */
   .controls {
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr;
@@ -240,7 +234,6 @@
     gap: 10px;
     margin-bottom: 18px;
   }
-  /* Reps */
   .section-title {
     font-size: 13px;
     font-weight: 600;
@@ -256,26 +249,27 @@
     border-radius: 16px;
     overflow: hidden;
     margin-bottom: 16px;
-    max-height: 320px;
+    max-height: 340px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
   .rep-row {
     display: grid;
-    grid-template-columns: 36px 1fr 1fr 1fr 32px;
-    padding: 11px 12px;
+    grid-template-columns: 28px 1fr 1fr 1fr 1fr 1fr 28px;
+    padding: 10px 8px;
     border-bottom: 1px solid var(--border);
-    font-size: 13px;
+    font-size: 12px;
     align-items: center;
+    gap: 2px;
   }
   .rep-row:last-child { border-bottom: none; }
   .rep-row.header {
     background: #0a0a0a;
     color: var(--muted);
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
     font-weight: 600;
     position: sticky;
     top: 0;
@@ -287,10 +281,10 @@
     background: none;
     border: none;
     color: var(--muted);
-    font-size: 16px;
+    font-size: 15px;
     padding: 0;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
   }
   .tips {
     font-size: 12px;
@@ -299,7 +293,6 @@
     text-align: center;
     padding: 0 4px 8px;
   }
-  /* Overlay */
   .overlay {
     position: fixed;
     inset: 0;
@@ -327,7 +320,7 @@
     padding: 17px;
     font-size: 16px;
   }
-  /* Settings Sheet */
+  /* Settings Sheet - improved scrolling */
   .sheet-backdrop {
     position: fixed;
     inset: 0;
@@ -355,10 +348,10 @@
     z-index: 160;
     transform: translateY(110%);
     transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-    max-height: 88dvh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 12px 20px 40px;
+    max-height: 90dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
   .sheet.open { transform: translateY(0); }
   .sheet-handle {
@@ -366,15 +359,23 @@
     height: 4px;
     background: #333;
     border-radius: 4px;
-    margin: 0 auto 18px;
+    margin: 10px auto 6px;
+    flex-shrink: 0;
+  }
+  .sheet-content {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 8px 20px 28px;
   }
   .sheet h3 {
     font-size: 18px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
   .setting-group {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
   .setting-label {
     font-size: 13px;
@@ -460,7 +461,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-top: 10px;
+    padding: 12px 20px 24px;
+    background: #111;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
   }
 </style>
 </head>
@@ -505,6 +509,10 @@
         <div class="metric-value" id="bestRep">—</div>
         <div class="metric-label">Best Rep</div>
       </div>
+      <div class="metric-card">
+        <div class="metric-value" id="romConsistency">—</div>
+        <div class="metric-label">ROM Consist %</div>
+      </div>
     </div>
     <div class="graph-container">
       <canvas id="velocityChart"></canvas>
@@ -527,91 +535,108 @@
         <div>#</div>
         <div>Mean</div>
         <div>Peak</div>
+        <div>tPeak</div>
+        <div>mPow</div>
         <div>ROM</div>
         <div></div>
       </div>
     </div>
     <div class="tips">
-      Mount phone firmly on the bar. Tap <strong>Zero</strong> when the bar is completely still if velocity drifts. Adjust min ROM & units in Settings.
+      Set your load in Settings for accurate power. Mount phone firmly. Zero when still if needed.
     </div>
   </div>
-  <!-- Permission -->
+
   <div class="overlay" id="permissionOverlay">
     <h2>Enable Motion Sensors</h2>
     <p>BarVelocity Pro needs access to your iPhone’s accelerometer and gyroscope to measure barbell velocity.</p>
     <button class="btn-primary" id="enableMotionBtn">Enable Motion Access</button>
   </div>
-  <!-- Settings Sheet -->
+
   <div class="sheet-backdrop" id="sheetBackdrop"></div>
   <div class="sheet" id="settingsSheet">
     <div class="sheet-handle"></div>
-    <h3>Settings</h3>
+    <div class="sheet-content">
+      <h3>Settings</h3>
 
-    <!-- Units -->
-    <div class="setting-group">
-      <div class="setting-label"><span>Velocity Units</span></div>
-      <div class="unit-row" id="velUnitRow">
-        <button class="unit-btn" data-unit="m/s">m/s</button>
-        <button class="unit-btn" data-unit="cm/s">cm/s</button>
-        <button class="unit-btn" data-unit="in/s">in/s</button>
-        <button class="unit-btn" data-unit="ft/s">ft/s</button>
+      <!-- Load (for power) -->
+      <div class="setting-group">
+        <div class="setting-label">
+          <span>Bar / Load Weight</span>
+          <span class="setting-value" id="loadVal">60 kg</span>
+        </div>
+        <input type="range" id="loadSlider" min="5" max="300" step="1" value="60">
+        <div class="unit-row" id="loadUnitRow" style="margin-top:10px">
+          <button class="unit-btn" data-unit="kg">kg</button>
+          <button class="unit-btn" data-unit="lb">lb</button>
+        </div>
       </div>
-    </div>
-    <div class="setting-group">
-      <div class="setting-label"><span>ROM Units</span></div>
-      <div class="unit-row" id="romUnitRow">
-        <button class="unit-btn" data-unit="cm">cm</button>
-        <button class="unit-btn" data-unit="in">in</button>
-      </div>
-    </div>
 
-    <div class="setting-group">
-      <div class="setting-label">
-        <span>Min ROM to count as rep</span>
-        <span class="setting-value" id="minRomVal">15 cm</span>
+      <!-- Units -->
+      <div class="setting-group">
+        <div class="setting-label"><span>Velocity Units</span></div>
+        <div class="unit-row" id="velUnitRow">
+          <button class="unit-btn" data-unit="m/s">m/s</button>
+          <button class="unit-btn" data-unit="cm/s">cm/s</button>
+          <button class="unit-btn" data-unit="in/s">in/s</button>
+          <button class="unit-btn" data-unit="ft/s">ft/s</button>
+        </div>
       </div>
-      <input type="range" id="minRom" min="5" max="60" step="1" value="15">
-    </div>
-    <div class="setting-group">
-      <div class="setting-label">
-        <span>Start Velocity Threshold</span>
-        <span class="setting-value" id="startThreshVal">0.12 m/s</span>
+      <div class="setting-group">
+        <div class="setting-label"><span>ROM Units</span></div>
+        <div class="unit-row" id="romUnitRow">
+          <button class="unit-btn" data-unit="cm">cm</button>
+          <button class="unit-btn" data-unit="in">in</button>
+        </div>
       </div>
-      <input type="range" id="startThresh" min="0.05" max="0.35" step="0.01" value="0.12">
-    </div>
-    <div class="setting-group">
-      <div class="setting-label">
-        <span>Stationary Threshold</span>
-        <span class="setting-value" id="statThreshVal">0.06 m/s</span>
+
+      <div class="setting-group">
+        <div class="setting-label">
+          <span>Min ROM to count as rep</span>
+          <span class="setting-value" id="minRomVal">15 cm</span>
+        </div>
+        <input type="range" id="minRom" min="5" max="60" step="1" value="15">
       </div>
-      <input type="range" id="statThresh" min="0.02" max="0.15" step="0.01" value="0.06">
-    </div>
-    <div class="setting-group">
-      <div class="setting-label">
-        <span>Zero Strength (higher = faster zero)</span>
-        <span class="setting-value" id="zeroStrengthVal">0.75</span>
+      <div class="setting-group">
+        <div class="setting-label">
+          <span>Start Velocity Threshold</span>
+          <span class="setting-value" id="startThreshVal">0.12 m/s</span>
+        </div>
+        <input type="range" id="startThresh" min="0.05" max="0.35" step="0.01" value="0.12">
       </div>
-      <input type="range" id="zeroStrength" min="0.3" max="0.95" step="0.05" value="0.75">
-    </div>
-    <div class="setting-group">
-      <div class="setting-label">
-        <span>Target Velocity (for feedback)</span>
-        <span class="setting-value" id="targetVelVal">0.50 m/s</span>
+      <div class="setting-group">
+        <div class="setting-label">
+          <span>Stationary Threshold</span>
+          <span class="setting-value" id="statThreshVal">0.06 m/s</span>
+        </div>
+        <input type="range" id="statThresh" min="0.02" max="0.15" step="0.01" value="0.06">
       </div>
-      <input type="range" id="targetVel" min="0.20" max="1.20" step="0.05" value="0.50">
-    </div>
-    <div class="setting-group">
-      <div class="toggle-row">
-        <span>Haptic feedback on rep</span>
-        <div class="toggle on" id="hapticToggle"></div>
+      <div class="setting-group">
+        <div class="setting-label">
+          <span>Zero Strength (higher = faster zero)</span>
+          <span class="setting-value" id="zeroStrengthVal">0.75</span>
+        </div>
+        <input type="range" id="zeroStrength" min="0.3" max="0.95" step="0.05" value="0.75">
       </div>
-      <div class="toggle-row">
-        <span>Sound on rep complete</span>
-        <div class="toggle" id="soundToggle"></div>
+      <div class="setting-group">
+        <div class="setting-label">
+          <span>Target Velocity (for feedback)</span>
+          <span class="setting-value" id="targetVelVal">0.50 m/s</span>
+        </div>
+        <input type="range" id="targetVel" min="0.20" max="1.20" step="0.05" value="0.50">
       </div>
-      <div class="toggle-row">
-        <span>Flash when below target</span>
-        <div class="toggle on" id="flashToggle"></div>
+      <div class="setting-group">
+        <div class="toggle-row">
+          <span>Haptic feedback on rep</span>
+          <div class="toggle on" id="hapticToggle"></div>
+        </div>
+        <div class="toggle-row">
+          <span>Sound on rep complete</span>
+          <div class="toggle" id="soundToggle"></div>
+        </div>
+        <div class="toggle-row">
+          <span>Flash when below target</span>
+          <div class="toggle on" id="flashToggle"></div>
+        </div>
       </div>
     </div>
     <div class="sheet-actions">
@@ -619,9 +644,9 @@
       <button class="btn-primary" id="saveSettings">Save</button>
     </div>
   </div>
+
 <script>
 (() => {
-  // ========== SETTINGS (persisted) ==========
   const defaultSettings = {
     minRomCm: 15,
     startThresh: 0.12,
@@ -632,7 +657,9 @@
     sound: false,
     flashBelowTarget: true,
     velUnit: 'm/s',
-    romUnit: 'cm'
+    romUnit: 'cm',
+    loadValue: 60,
+    loadUnit: 'kg'
   };
   let settings = { ...defaultSettings };
   try {
@@ -640,31 +667,30 @@
     if (saved) settings = { ...defaultSettings, ...JSON.parse(saved) };
   } catch(e) {}
 
-  // ========== UNIT HELPERS ==========
+  // Unit helpers
   function toDisplayVel(ms) {
     switch (settings.velUnit) {
       case 'cm/s': return ms * 100;
       case 'in/s': return ms * 39.3701;
       case 'ft/s': return ms * 3.28084;
-      default:     return ms;
+      default: return ms;
     }
   }
-  function formatVel(ms, digits = 2) {
-    return toDisplayVel(ms).toFixed(digits);
-  }
-  function toDisplayRom(cm) {
-    return settings.romUnit === 'in' ? cm / 2.54 : cm;
-  }
+  function formatVel(ms, digits = 2) { return toDisplayVel(ms).toFixed(digits); }
+  function toDisplayRom(cm) { return settings.romUnit === 'in' ? cm / 2.54 : cm; }
   function formatRom(cm) {
     const v = toDisplayRom(cm);
     return settings.romUnit === 'in' ? v.toFixed(1) : Math.round(v);
+  }
+  function getMassKg() {
+    return settings.loadUnit === 'lb' ? settings.loadValue * 0.453592 : settings.loadValue;
   }
   function updateUnitLabels() {
     $('velocityUnitLabel').textContent = settings.velUnit;
     $('romUnitLabel').textContent = `ROM (${settings.romUnit})`;
   }
 
-  // ========== STATE ==========
+  // State
   let isRecording = false;
   let permissionGranted = false;
   let gravity = { x: 0, y: 0, z: 9.81 };
@@ -676,21 +702,18 @@
   const velHistory = [];
   const HISTORY_LEN = 14;
 
-  // Rep state machine
-  let repState = 'idle';          // 'idle' | 'concentric'
+  let repState = 'idle';
   let currentRep = null;
   let reps = [];
-  let endConfirm = 0;             // consecutive near-zero samples
-  let lastRepEndTime = 0;         // timestamp of last completed rep (ms)
-  const REP_COOLDOWN_MS = 420;    // prevent double-counting
+  let endConfirm = 0;
+  let lastRepEndTime = 0;
+  const REP_COOLDOWN_MS = 420;
 
-  // Chart
   const chartData = [];
   const MAX_POINTS = 140;
   let chartCtx = null;
   const $ = id => document.getElementById(id);
 
-  // ========== SENSOR ==========
   function requestMotionPermission() {
     if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
       DeviceMotionEvent.requestPermission()
@@ -699,11 +722,8 @@
             permissionGranted = true;
             $('permissionOverlay').classList.add('hidden');
             window.addEventListener('devicemotion', onMotion, { passive: true });
-          } else {
-            alert('Motion permission is required.');
-          }
-        })
-        .catch(console.error);
+          } else alert('Motion permission is required.');
+        }).catch(console.error);
     } else {
       permissionGranted = true;
       $('permissionOverlay').classList.add('hidden');
@@ -730,66 +750,50 @@
       linZ = (aig.z || 0) - gravity.z;
     }
     const gMag = Math.hypot(gravity.x, gravity.y, gravity.z) || 9.81;
-    const gx = gravity.x / gMag;
-    const gy = gravity.y / gMag;
-    const gz = gravity.z / gMag;
+    const gx = gravity.x / gMag, gy = gravity.y / gMag, gz = gravity.z / gMag;
     const accel = -(linX * gx + linY * gy + linZ * gz);
     processSample(accel, now);
   }
 
   function processSample(rawAccel, timestamp) {
-    if (!lastTimestamp) {
-      lastTimestamp = timestamp;
-      return;
-    }
+    if (!lastTimestamp) { lastTimestamp = timestamp; return; }
     let dt = (timestamp - lastTimestamp) / 1000;
     if (dt <= 0 || dt > 0.08) dt = 0.016;
     lastTimestamp = timestamp;
 
     const accel = 0.65 * lastAccel + 0.35 * rawAccel;
     lastAccel = accel;
-
     velocity += accel * dt;
 
-    // Flat-line / zero-velocity detection
+    // Flat-line zeroing
     velHistory.push(velocity);
     if (velHistory.length > HISTORY_LEN) velHistory.shift();
-
     let isFlat = false;
     if (velHistory.length >= HISTORY_LEN) {
       const mean = velHistory.reduce((a, b) => a + b, 0) / velHistory.length;
       let variance = 0;
       for (const v of velHistory) variance += (v - mean) * (v - mean);
-      variance /= velHistory.length;
-      const std = Math.sqrt(variance);
+      const std = Math.sqrt(variance / velHistory.length);
       isFlat = std < 0.018;
     }
-
     const isStationary = (Math.abs(velocity) < settings.stationaryThresh && Math.abs(accel) < 0.55) ||
                          (isFlat && Math.abs(accel) < 0.70);
-
     if (isStationary) {
       stationarySamples++;
       if (stationarySamples >= 4) {
         const strength = isFlat ? Math.min(0.92, settings.zeroStrength + 0.15) : settings.zeroStrength;
         velocity *= (1 - strength);
-        if (Math.abs(velocity) < 0.012 || (isFlat && Math.abs(velocity) < 0.04)) {
-          velocity = 0;
-        }
+        if (Math.abs(velocity) < 0.012 || (isFlat && Math.abs(velocity) < 0.04)) velocity = 0;
       }
-    } else {
-      stationarySamples = 0;
-    }
+    } else stationarySamples = 0;
 
     position += velocity * dt;
 
-    // Live UI
     const absV = Math.abs(velocity);
     $('liveVelocity').textContent = formatVel(absV);
 
     if (settings.flashBelowTarget && isRecording && repState === 'concentric' && absV > 0.08) {
-      const hero = document.querySelector('.hero');
-      hero.style.borderColor = absV < settings.targetVel ? 'rgba(255, 165, 2, 0.5)' : '';
+      document.querySelector('.hero').style.borderColor = absV < settings.targetVel ? 'rgba(255, 165, 2, 0.5)' : '';
     }
 
     chartData.push(velocity);
@@ -798,58 +802,59 @@
 
     if (!isRecording) return;
 
-    // ========== REP STATE MACHINE (fixed double-count) ==========
+    // Rep state machine
     if (repState === 'idle') {
-      // Cooldown prevents immediate re-trigger after a rep
       if (velocity > settings.startThresh && (timestamp - lastRepEndTime > REP_COOLDOWN_MS)) {
         repState = 'concentric';
         endConfirm = 0;
         currentRep = {
           startPos: position,
+          startTime: timestamp,
           peakVel: velocity,
+          timeToPeak: 0,
           sumVel: velocity,
           count: 1,
           maxPos: position
         };
       }
-    }
-    else if (repState === 'concentric') {
+    } else if (repState === 'concentric') {
       currentRep.sumVel += Math.max(0, velocity);
       currentRep.count++;
-      if (velocity > currentRep.peakVel) currentRep.peakVel = velocity;
+      if (velocity > currentRep.peakVel) {
+        currentRep.peakVel = velocity;
+        currentRep.timeToPeak = (timestamp - currentRep.startTime) / 1000;
+      }
       if (position > currentRep.maxPos) currentRep.maxPos = position;
 
-      // Require sustained near-zero before ending
-      if (velocity < settings.stationaryThresh * 1.5) {
-        endConfirm++;
-      } else {
-        endConfirm = 0;
-      }
+      if (velocity < settings.stationaryThresh * 1.5) endConfirm++;
+      else endConfirm = 0;
 
-      const enoughData = currentRep.count > 10;
-      if (endConfirm >= 5 && enoughData) {
+      if (endConfirm >= 5 && currentRep.count > 10) {
         const romMeters = currentRep.maxPos - currentRep.startPos;
         const romCm = romMeters * 100;
         if (romCm >= settings.minRomCm) {
           const meanVel = currentRep.sumVel / currentRep.count;
+          const mass = getMassKg();
+          const meanPower = meanVel * mass * 9.81;
+          const peakPower = currentRep.peakVel * mass * 9.81;
           const rep = {
             number: reps.length + 1,
             mean: meanVel,
             peak: currentRep.peakVel,
+            timeToPeak: currentRep.timeToPeak,
+            meanPower,
+            peakPower,
             rom: romCm
           };
           reps.push(rep);
           onRepComplete(rep);
         }
-        // End the rep cleanly
         repState = 'idle';
         currentRep = null;
         endConfirm = 0;
         lastRepEndTime = timestamp;
         forceZero();
       }
-
-      // Safety abort on strong negative velocity
       if (velocity < -0.45 && currentRep && currentRep.count > 15) {
         repState = 'idle';
         currentRep = null;
@@ -859,7 +864,6 @@
       }
     }
 
-    // Live peak / ROM during active rep
     if (currentRep) {
       $('peakVel').textContent = formatVel(currentRep.peakVel);
       const liveRomCm = Math.max(0, (currentRep.maxPos - currentRep.startPos) * 100);
@@ -869,18 +873,14 @@
 
   function onRepComplete(rep) {
     updateUI();
-    if (settings.haptic && navigator.vibrate) {
-      navigator.vibrate(45);
-    }
+    if (settings.haptic && navigator.vibrate) navigator.vibrate(45);
     if (settings.sound) {
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.value = 880;
-        gain.gain.value = 0.08;
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.frequency.value = 880; gain.gain.value = 0.08;
         osc.start();
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
         osc.stop(ctx.currentTime + 0.12);
@@ -897,13 +897,13 @@
     if (navigator.vibrate) navigator.vibrate(25);
   }
 
-  // ========== UI ==========
   function updateUI() {
     $('repCount').textContent = reps.length;
     if (reps.length === 0) {
       $('setMean').textContent = '—';
       $('velLoss').textContent = '—';
       $('bestRep').textContent = '—';
+      $('romConsistency').textContent = '—';
       $('setInfo').textContent = isRecording ? 'Waiting for first rep…' : 'Set not started';
       $('peakVel').textContent = formatVel(0);
       $('rom').textContent = formatRom(0);
@@ -917,10 +917,21 @@
     $('setMean').textContent = formatVel(setMean);
     $('velLoss').textContent = loss.toFixed(0) + '%';
     $('bestRep').textContent = formatVel(best);
+
+    // ROM Consistency %
+    const roms = reps.map(r => r.rom);
+    const meanRom = roms.reduce((a, b) => a + b, 0) / roms.length;
+    let romStd = 0;
+    roms.forEach(r => romStd += (r - meanRom) ** 2);
+    romStd = Math.sqrt(romStd / roms.length);
+    const consistency = meanRom > 0 ? Math.max(0, (1 - romStd / meanRom) * 100) : 0;
+    $('romConsistency').textContent = consistency.toFixed(0) + '%';
+
     $('peakVel').textContent = formatVel(reps[reps.length - 1].peak);
     $('rom').textContent = formatRom(reps[reps.length - 1].rom);
     $('setInfo').textContent = `${reps.length} rep${reps.length > 1 ? 's' : ''} recorded`;
 
+    // Rebuild list
     const list = $('repsList');
     const header = list.querySelector('.header');
     list.innerHTML = '';
@@ -933,6 +944,8 @@
         <div class="rep-num">${r.number}</div>
         <div class="mono">${formatVel(r.mean)}</div>
         <div class="mono">${formatVel(r.peak)}</div>
+        <div class="mono">${r.timeToPeak.toFixed(2)}s</div>
+        <div class="mono">${Math.round(r.meanPower)}</div>
         <div class="mono">${formatRom(r.rom)}</div>
         <button class="del-rep" data-idx="${realIndex}">×</button>
       `;
@@ -982,7 +995,7 @@
     chartCtx.stroke();
   }
 
-  // ========== CONTROLS ==========
+  // Controls
   $('enableMotionBtn').addEventListener('click', requestMotionPermission);
   $('zeroBtn').addEventListener('click', forceZero);
   $('calibrateBtn').addEventListener('click', () => {
@@ -994,10 +1007,7 @@
     if (navigator.vibrate) navigator.vibrate([20, 40, 20]);
   });
   $('recordBtn').addEventListener('click', () => {
-    if (!permissionGranted) {
-      requestMotionPermission();
-      return;
-    }
+    if (!permissionGranted) { requestMotionPermission(); return; }
     isRecording = !isRecording;
     if (isRecording) {
       reps = [];
@@ -1057,6 +1067,8 @@
     $('zeroStrengthVal').textContent = settings.zeroStrength.toFixed(2);
     $('targetVel').value = settings.targetVel;
     $('targetVelVal').textContent = settings.targetVel.toFixed(2) + ' m/s';
+    $('loadSlider').value = settings.loadValue;
+    $('loadVal').textContent = settings.loadValue + ' ' + settings.loadUnit;
     $('hapticToggle').classList.toggle('on', settings.haptic);
     $('soundToggle').classList.toggle('on', settings.sound);
     $('flashToggle').classList.toggle('on', settings.flashBelowTarget);
@@ -1066,6 +1078,9 @@
     });
     document.querySelectorAll('#romUnitRow .unit-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.unit === settings.romUnit);
+    });
+    document.querySelectorAll('#loadUnitRow .unit-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.unit === settings.loadUnit);
     });
 
     $('sheetBackdrop').classList.add('open');
@@ -1079,20 +1094,14 @@
   $('sheetBackdrop').addEventListener('click', closeSettings);
   $('closeSettings').addEventListener('click', closeSettings);
 
-  $('minRom').addEventListener('input', e => {
-    $('minRomVal').textContent = e.target.value + ' cm';
-  });
-  $('startThresh').addEventListener('input', e => {
-    $('startThreshVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s';
-  });
-  $('statThresh').addEventListener('input', e => {
-    $('statThreshVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s';
-  });
-  $('zeroStrength').addEventListener('input', e => {
-    $('zeroStrengthVal').textContent = parseFloat(e.target.value).toFixed(2);
-  });
-  $('targetVel').addEventListener('input', e => {
-    $('targetVelVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s';
+  $('minRom').addEventListener('input', e => $('minRomVal').textContent = e.target.value + ' cm');
+  $('startThresh').addEventListener('input', e => $('startThreshVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s');
+  $('statThresh').addEventListener('input', e => $('statThreshVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s');
+  $('zeroStrength').addEventListener('input', e => $('zeroStrengthVal').textContent = parseFloat(e.target.value).toFixed(2));
+  $('targetVel').addEventListener('input', e => $('targetVelVal').textContent = parseFloat(e.target.value).toFixed(2) + ' m/s');
+  $('loadSlider').addEventListener('input', e => {
+    const unit = document.querySelector('#loadUnitRow .unit-btn.active')?.dataset.unit || settings.loadUnit;
+    $('loadVal').textContent = e.target.value + ' ' + unit;
   });
 
   document.querySelectorAll('#velUnitRow .unit-btn').forEach(btn => {
@@ -1107,6 +1116,13 @@
       btn.classList.add('active');
     });
   });
+  document.querySelectorAll('#loadUnitRow .unit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#loadUnitRow .unit-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      $('loadVal').textContent = $('loadSlider').value + ' ' + btn.dataset.unit;
+    });
+  });
 
   ['hapticToggle', 'soundToggle', 'flashToggle'].forEach(id => {
     $(id).addEventListener('click', () => $(id).classList.toggle('on'));
@@ -1118,14 +1134,17 @@
     settings.stationaryThresh = parseFloat($('statThresh').value);
     settings.zeroStrength = parseFloat($('zeroStrength').value);
     settings.targetVel = parseFloat($('targetVel').value);
+    settings.loadValue = parseInt($('loadSlider').value);
     settings.haptic = $('hapticToggle').classList.contains('on');
     settings.sound = $('soundToggle').classList.contains('on');
     settings.flashBelowTarget = $('flashToggle').classList.contains('on');
 
     const activeVel = document.querySelector('#velUnitRow .unit-btn.active');
     const activeRom = document.querySelector('#romUnitRow .unit-btn.active');
+    const activeLoad = document.querySelector('#loadUnitRow .unit-btn.active');
     if (activeVel) settings.velUnit = activeVel.dataset.unit;
     if (activeRom) settings.romUnit = activeRom.dataset.unit;
+    if (activeLoad) settings.loadUnit = activeLoad.dataset.unit;
 
     localStorage.setItem('bv_settings', JSON.stringify(settings));
     updateUnitLabels();
@@ -1134,11 +1153,13 @@
     if (navigator.vibrate) navigator.vibrate(30);
   });
 
+  // Improved touch handling - allow free scrolling on sheet and reps list
   document.body.addEventListener('touchmove', e => {
-    if (!e.target.closest('.reps-list') && !e.target.closest('.sheet')) {
-      if (e.target.closest('.hero') || e.target.closest('.controls') || e.target.closest('.metrics')) {
-        e.preventDefault();
-      }
+    if (e.target.closest('.sheet') || e.target.closest('.reps-list') || e.target.closest('.sheet-content')) {
+      return; // allow native scroll
+    }
+    if (e.target.closest('.hero') || e.target.closest('.controls') || e.target.closest('.metrics')) {
+      e.preventDefault();
     }
   }, { passive: false });
 
